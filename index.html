@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Safety Warriors</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --red:#DC2626;--redl:#EF4444;--redd:#991B1B;--redbg:#FEF2F2;--redbd:#FECACA;
+  --em:#059669;--eml:#10B981;--emd:#047857;--embg:#ECFDF5;--embd:#A7F3D0;
+  --blue:#2563EB;--bll:#3B82F6;--bld:#1D4ED8;--blbg:#EFF6FF;--blbd:#BFDBFE;
+  --am:#D97706;--ambg:#FFFBEB;--ambd:#FDE68A;
+  --s1:#0F172A;--s2:#1E293B;--s3:#334155;--s4:#475569;--s5:#64748B;
+  --s6:#94A3B8;--s7:#CBD5E1;--s8:#E2E8F0;--s9:#F1F5F9;--s10:#F8FAFC;
+  --card:#fff;--bd:#E2E8F0;
+  --f:"Plus Jakarta Sans",sans-serif;
+  --sh0:0 1px 2px rgba(0,0,0,.05);
+  --sh1:0 1px 3px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.04);
+  --sh2:0 4px 12px rgba(0,0,0,.07);
+  --sh3:0 8px 24px rgba(0,0,0,.09);
+  --sh4:0 16px 40px rgba(0,0,0,.11);
+  --r:8px;--rl:12px;--rxl:16px;--nav:64px;
+}
+body{font-family:var(--f);background:var(--s10);color:var(--s1);font-size:15px;line-height:1.6;overflow-x:hidden}
+.app{display:flex;flex-direction:column;min-height:100vh}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:300;height:var(--nav);background:rgba(255,255,255,.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--bd);display:flex;align-items:center;padding:0 1.5rem;gap:.75rem;box-shadow:var(--sh0)}
+.brand{display:flex;align-items:center;gap:.5rem;cursor:pointer;flex-shrink:0}
+.bmark{width:32px;height:32px;background:var(--em);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.9rem;box-shadow:0 2px 6px rgba(5,150,105,.3)}
+.bname{font-size:.98rem;font-weight:800;color:var(--s1);letter-spacing:-.02em}
+.bname span{color:var(--em)}
+.nav-links{display:flex;gap:.08rem;margin-left:.9rem}
+.nb{background:none;border:none;color:var(--s5);font-family:var(--f);font-size:.77rem;font-weight:500;padding:.36rem .62rem;border-radius:6px;cursor:pointer;transition:all .15s;white-space:nowrap}
+.nb:hover{background:var(--s9);color:var(--s1)}
+.nb.on{background:var(--embg);color:var(--emd);font-weight:600}
+.nbsos{background:var(--red);color:#fff;font-weight:700;margin-left:.3rem;border-radius:7px;padding:.36rem .82rem;box-shadow:0 2px 6px rgba(220,38,38,.28)}
+.nbsos:hover{background:var(--redd)!important;color:#fff!important}
+.navr{margin-left:auto;display:flex;align-items:center;gap:.5rem;flex-shrink:0}
+.upill{display:flex;align-items:center;gap:.48rem;padding:.27rem .58rem .27rem .3rem;border:1.5px solid var(--bd);border-radius:24px;cursor:pointer;background:var(--card);box-shadow:var(--sh0);transition:all .15s}
+.upill:hover{border-color:var(--embd)}
+.uav{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--eml),var(--emd));display:flex;align-items:center;justify-content:center;font-size:.58rem;font-weight:700;color:#fff}
+.uname{font-size:.74rem;font-weight:600}
+.ham{display:none;background:none;border:1px solid var(--bd);border-radius:6px;padding:.32rem .48rem;cursor:pointer;font-size:.9rem;color:var(--s1)}
+.mobnav{display:none;position:fixed;top:var(--nav);left:0;right:0;background:#fff;border-bottom:1px solid var(--bd);padding:.65rem 1rem;flex-direction:column;gap:.22rem;z-index:299;box-shadow:var(--sh3)}
+.mobnav.open{display:flex}
+.mnb{background:none;border:none;text-align:left;padding:.52rem .68rem;border-radius:7px;font-family:var(--f);font-size:.84rem;font-weight:500;color:var(--s3);cursor:pointer;transition:all .15s}
+.mnb:hover{background:var(--s9)}.mnb.on{background:var(--embg);color:var(--emd);font-weight:600}.mnbsos{background:var(--redbg);color:var(--red);font-weight:700}
+
+/* PAGES */
+.page{display:none;flex:1;animation:pgf .18s ease}
+.page.on{display:block}
+@keyframes pgf{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:.4rem;padding:.54rem 1.28rem;border-radius:var(--r);font-family:var(--f);font-size:.82rem;font-weight:600;cursor:pointer;transition:all .15s;border:none;line-height:1.3}
+.bem{background:var(--em);color:#fff;box-shadow:0 2px 6px rgba(5,150,105,.22)}.bem:hover{background:var(--emd);transform:translateY(-1px)}
+.bred{background:var(--red);color:#fff;box-shadow:0 2px 6px rgba(220,38,38,.2)}.bred:hover{background:var(--redd);transform:translateY(-1px)}
+.bblue{background:var(--blue);color:#fff}.bblue:hover{background:var(--bld);transform:translateY(-1px)}
+.bout{background:var(--card);color:var(--s1);border:1.5px solid var(--bd)}.bout:hover{border-color:var(--s7);background:var(--s9)}
+.boutem{background:var(--embg);color:var(--emd);border:1.5px solid var(--embd)}.boutem:hover{background:var(--embd)}
+.boutred{background:var(--redbg);color:var(--redd);border:1.5px solid var(--redbd)}.boutred:hover{background:var(--redbd)}
+.bsm{padding:.33rem .75rem;font-size:.74rem}
+.bxs{padding:.2rem .5rem;font-size:.67rem}
+
+/* CARDS, BADGES, UTILS */
+.card{background:var(--card);border:1px solid var(--bd);border-radius:var(--rl);padding:1.28rem;box-shadow:var(--sh1)}
+.bdg{display:inline-flex;align-items:center;gap:.18rem;padding:.13rem .52rem;border-radius:20px;font-size:.63rem;font-weight:700;letter-spacing:.02em}
+.dem{background:var(--embg);color:var(--emd)}.dred{background:var(--redbg);color:var(--redd)}.dblue{background:var(--blbg);color:var(--bld)}.dam{background:var(--ambg);color:var(--am)}.dgray{background:var(--s9);color:var(--s4)}
+.tag{font-size:.63rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--em)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:1.05rem}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.9rem}
+.gauto{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:.8rem}
+.fl{display:flex;align-items:center}.fb{display:flex;align-items:center;justify-content:space-between}
+.fg{margin-bottom:.75rem}
+label{display:block;font-size:.7rem;font-weight:600;color:var(--s4);margin-bottom:.24rem;letter-spacing:.02em}
+input,select,textarea{width:100%;padding:.52rem .78rem;border:1.5px solid var(--s8);border-radius:var(--r);font-family:var(--f);font-size:.85rem;background:var(--card);color:var(--s1);outline:none;transition:border-color .15s,box-shadow .15s}
+input:focus,select:focus,textarea:focus{border-color:var(--em);box-shadow:0 0 0 3px rgba(5,150,105,.1)}
+textarea{resize:vertical;min-height:65px;line-height:1.55}
+.slbl{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--em);padding-bottom:.32rem;border-bottom:1.5px solid var(--embg);margin:1.05rem 0 .68rem;display:block}
+.ldot{width:7px;height:7px;border-radius:50%;background:#22C55E;animation:ld 1.5s infinite;flex-shrink:0}
+@keyframes ld{0%,100%{opacity:1}50%{opacity:.2}}
+.scroll{overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--s8) transparent}
+.scroll::-webkit-scrollbar{width:3px}.scroll::-webkit-scrollbar-thumb{background:var(--s8);border-radius:2px}
+.av{border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.66rem;font-weight:700;flex-shrink:0}
+.crow{display:flex;align-items:center;gap:.65rem;padding:.58rem .78rem;background:var(--s10);border-radius:var(--r);border:1px solid var(--s8);margin-bottom:.42rem}
+.crow:last-child{margin-bottom:0}
+.ibtn{width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;border:1px solid var(--bd);background:none;cursor:pointer;font-size:.8rem;transition:all .15s;color:var(--s5)}
+.ibtn:hover{background:var(--s9);color:var(--s1)}
+.pw{padding:1.65rem;max-width:1100px;margin:0 auto}
+.ph{margin-bottom:1.4rem}.ph h1{font-size:1.45rem;font-weight:800;letter-spacing:-.025em;margin-bottom:.15rem}.ph p{font-size:.82rem;color:var(--s5)}
+
+/* TOAST */
+.toast{position:fixed;bottom:1.25rem;right:1.25rem;z-index:999;background:var(--s2);color:#fff;padding:.72rem 1.1rem;border-radius:10px;font-size:.77rem;font-weight:500;box-shadow:var(--sh4);transform:translateX(130%);transition:transform .28s cubic-bezier(.34,1.56,.64,1);max-width:270px;border-left:3px solid var(--em)}
+.toast.on{transform:translateX(0)}.toast.ok{border-left-color:#22C55E}.toast.err{border-left-color:var(--redl)}.toast.warn{border-left-color:#F59E0B}
+
+/* LANDING */
+.hero{background:#fff;border-bottom:1px solid var(--bd);padding:4.5rem 2rem 3.8rem;position:relative;overflow:hidden}
+.hero-accent{position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--em) 0%,var(--eml) 35%,var(--blue) 65%,var(--red) 100%)}
+.hero-tex{position:absolute;top:0;right:0;width:480px;height:480px;background:radial-gradient(ellipse at top right,rgba(5,150,105,.04) 0%,transparent 65%)}
+.hero-dots{position:absolute;top:0;right:0;width:340px;height:340px;background-image:radial-gradient(circle,var(--s7) 1px,transparent 1px);background-size:22px 22px;opacity:.32}
+.hero-in{max-width:840px;margin:0 auto;position:relative;z-index:2}
+.hero-kick{display:inline-flex;align-items:center;gap:.4rem;background:var(--embg);border:1px solid var(--embd);color:var(--emd);font-size:.68rem;font-weight:700;letter-spacing:.08em;padding:.26rem .72rem;border-radius:20px;text-transform:uppercase;margin-bottom:1.28rem}
+.hero h1{font-size:clamp(2.1rem,5vw,3.7rem);font-weight:800;letter-spacing:-.03em;line-height:1.07;color:var(--s1);margin-bottom:1.05rem}
+.hero h1 .acc{color:var(--red)}.hero h1 .grn{color:var(--em)}
+.hero-sub{font-size:.97rem;color:var(--s5);max-width:510px;line-height:1.78;margin-bottom:2.2rem}
+.hero-ctas{display:flex;gap:.72rem;flex-wrap:wrap;margin-bottom:3rem}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1.1rem;max-width:560px;padding-top:1.4rem;border-top:1px solid var(--s8)}
+.hs .n{font-size:1.5rem;font-weight:800;color:var(--s1);letter-spacing:-.025em;line-height:1}
+.hs .l{font-size:.7rem;color:var(--s5);margin-top:.16rem;font-weight:500}
+
+/* FEATURES */
+.feat-sec{padding:3.8rem 2rem;background:var(--s10)}
+.feat-in{max-width:960px;margin:0 auto}
+.shdr{margin-bottom:1.9rem}.shdr h2{font-size:1.65rem;font-weight:800;letter-spacing:-.025em;margin-bottom:.38rem}.shdr p{font-size:.86rem;color:var(--s5);max-width:430px;line-height:1.72}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:.95rem}
+.fcard{background:var(--card);border:1px solid var(--bd);border-radius:var(--rl);padding:1.45rem;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.fcard:hover{transform:translateY(-2px);box-shadow:var(--sh3);border-color:transparent}
+.ftop{height:2px;position:absolute;top:0;left:0;right:0}
+.ficon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:.88rem}
+.fcard h3{font-size:.92rem;font-weight:700;margin-bottom:.32rem;letter-spacing:-.01em;color:var(--s1)}
+.fcard p{font-size:.79rem;color:var(--s5);line-height:1.65}
+
+/* HOW IT WORKS */
+.how-sec{padding:3.8rem 2rem;background:#fff;border-top:1px solid var(--bd);border-bottom:1px solid var(--bd)}
+.how-in{max-width:880px;margin:0 auto}
+.how-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:1.9rem;margin-top:1.9rem}
+.snum{font-size:.63rem;font-weight:700;letter-spacing:.08em;color:var(--em);text-transform:uppercase;margin-bottom:.38rem}
+.hstep h4{font-size:.9rem;font-weight:700;color:var(--s1);margin-bottom:.28rem;letter-spacing:-.01em}
+.hstep p{font-size:.79rem;color:var(--s5);line-height:1.65}
+
+/* TESTIMONIALS */
+.testi-sec{padding:3.8rem 2rem;background:var(--s10)}
+.testi-in{max-width:930px;margin:0 auto}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:.95rem;margin-top:1.9rem}
+.tcard{background:var(--card);border:1px solid var(--bd);border-radius:var(--rl);padding:1.35rem;box-shadow:var(--sh0)}
+.stars{color:#F59E0B;font-size:.8rem;margin-bottom:.62rem}
+.tquote{font-size:.84rem;color:var(--s3);line-height:1.72;font-style:italic;margin-bottom:.88rem}
+.tauth{display:flex;align-items:center;gap:.58rem}
+.taav{width:33px;height:33px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:700}
+.taname{font-size:.79rem;font-weight:600;color:var(--s1)}
+.taloc{font-size:.68rem;color:var(--s6)}
+
+/* CTA */
+.cta-sec{padding:4.2rem 2rem;background:var(--s2);text-align:center}
+.cta-in{max-width:540px;margin:0 auto}
+.cta-sec .tag{color:var(--eml);margin-bottom:.58rem}
+.cta-sec h2{font-size:1.9rem;font-weight:800;color:#fff;letter-spacing:-.025em;margin-bottom:.62rem}
+.cta-sec p{color:var(--s6);font-size:.86rem;line-height:1.75;margin-bottom:1.65rem}
+
+/* FOOTER */
+.embar{background:var(--redbg);border-top:1px solid var(--redbd);padding:.5rem 2rem;display:flex;gap:1.8rem;justify-content:center;flex-wrap:wrap}
+.emitem{font-size:.7rem;font-weight:700;color:var(--red)}
+footer{background:#fff;border-top:1px solid var(--bd);padding:1.65rem 2rem;text-align:center}
+.ftlinks{display:flex;gap:1.3rem;justify-content:center;flex-wrap:wrap;margin-bottom:.7rem}
+.ftlinks a{font-size:.77rem;color:var(--s5);text-decoration:none}.ftlinks a:hover{color:var(--em)}
+.ftcopy{font-size:.72rem;color:var(--s6)}
+
+/* AUTH */
+.auth-page{min-height:calc(100vh - var(--nav));display:flex;background:var(--s10)}
+.auth-l{flex:1;display:flex;align-items:flex-start;justify-content:center;padding:2.2rem 1.5rem;overflow-y:auto}
+.auth-panel{width:100%;max-width:490px;background:var(--card);border:1px solid var(--bd);border-radius:var(--rxl);padding:2.1rem;box-shadow:var(--sh3)}
+.auth-brand{display:flex;align-items:center;gap:.55rem;margin-bottom:1.4rem}
+.auth-logo{width:36px;height:36px;background:var(--em);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1rem;box-shadow:0 2px 6px rgba(5,150,105,.28)}
+.auth-bn{font-size:1.05rem;font-weight:800;letter-spacing:-.02em}
+.auth-bn span{color:var(--em)}
+.auth-h{font-size:1.38rem;font-weight:800;letter-spacing:-.025em;margin-bottom:.22rem}
+.auth-sub{font-size:.81rem;color:var(--s5);margin-bottom:1.4rem}
+.tabbar{display:flex;background:var(--s9);border-radius:var(--r);padding:.26rem;gap:.26rem;margin-bottom:1.28rem}
+.ftab{flex:1;padding:.5rem;border:none;border-radius:6px;font-family:var(--f);font-size:.78rem;font-weight:600;cursor:pointer;transition:all .18s;background:transparent;color:var(--s5)}
+.ftab.on{background:var(--card);color:var(--s1);box-shadow:var(--sh0)}
+.auth-r{flex:1;background:linear-gradient(160deg,#0A160D 0%,#0A2318 45%,#0A160D 100%);display:flex;align-items:center;justify-content:center;padding:2.8rem;position:relative;overflow:hidden}
+@media(max-width:768px){.auth-r{display:none}}
+.ar-pat{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(5,150,105,.1) 1px,transparent 1px);background-size:26px 26px}
+.ar-con{position:relative;z-index:2;color:#fff;max-width:340px}
+.ar-icon{font-size:2.8rem;margin-bottom:1.1rem}
+.ar-h{font-size:1.65rem;font-weight:800;letter-spacing:-.025em;margin-bottom:.7rem;line-height:1.18}
+.ar-h span{color:var(--eml)}
+.ar-p{font-size:.85rem;color:rgba(255,255,255,.5);line-height:1.75;margin-bottom:1.4rem}
+.ar-feats{display:flex;flex-direction:column;gap:.55rem}
+.ar-feat{display:flex;align-items:center;gap:.6rem;font-size:.81rem;color:rgba(255,255,255,.65)}
+.ar-dot{width:7px;height:7px;border-radius:50%;background:var(--eml);flex-shrink:0}
+
+/* DASHBOARD */
+.dash-wrap{padding:1.65rem;max-width:1200px;margin:0 auto}
+.dash-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.4rem;flex-wrap:wrap;gap:.85rem}
+.dash-greet h1{font-size:1.38rem;font-weight:800;letter-spacing:-.025em;margin-bottom:.12rem}
+.dash-greet p{font-size:.8rem;color:var(--s5)}
+.stpill{display:flex;align-items:center;gap:.42rem;background:var(--embg);border:1px solid var(--embd);padding:.32rem .82rem;border-radius:20px}
+.stpill span{font-size:.7rem;font-weight:600;color:var(--emd)}
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:.85rem;margin-bottom:1.28rem}
+.kpi{background:var(--card);border:1px solid var(--bd);border-radius:var(--rl);padding:1.1rem;position:relative;overflow:hidden;box-shadow:var(--sh0)}
+.kstripe{position:absolute;left:0;top:0;bottom:0;width:3px}
+.klbl{font-size:.65rem;font-weight:600;color:var(--s5);letter-spacing:.04em;text-transform:uppercase;margin-bottom:.32rem}
+.kval{font-size:1.78rem;font-weight:800;letter-spacing:-.025em;line-height:1}
+.ksub{font-size:.68rem;color:var(--s6);margin-top:.16rem}
+.svc-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:.85rem;margin-bottom:1.28rem}
+.svc{background:var(--card);border:1.5px solid var(--bd);border-radius:var(--rl);padding:1.2rem;cursor:pointer;transition:all .18s;text-align:center;box-shadow:var(--sh0)}
+.svc:hover{transform:translateY(-2px);box-shadow:var(--sh2);border-color:var(--embd)}
+.sicon{font-size:1.72rem;margin-bottom:.58rem}
+.svc h3{font-size:.83rem;font-weight:700;color:var(--s1);margin-bottom:.14rem;letter-spacing:-.01em}
+.svc p{font-size:.7rem;color:var(--s5)}
+.svc-sos{background:linear-gradient(135deg,var(--redbg),#FFE4E4);border-color:var(--redbd)}
+.svc-sos h3{color:var(--redd)}.svc-sos:hover{border-color:var(--red);box-shadow:0 4px 14px rgba(220,38,38,.13)}
+
+/* SAFEROUTE */
+.sr-wrap{background:var(--card);border:1.5px solid var(--embd);border-radius:var(--rxl);padding:1.45rem;box-shadow:var(--sh1);position:relative;overflow:hidden}
+.sr-wrap::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--em),var(--eml))}
+.sr-hdr{display:flex;align-items:center;gap:.6rem;margin-bottom:.28rem}
+.sr-badge{width:30px;height:30px;background:var(--embg);border:1.5px solid var(--embd);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:.88rem}
+.sr-title{font-size:.96rem;font-weight:800;color:var(--s1);letter-spacing:-.02em}
+.sr-sub{font-size:.73rem;color:var(--s5);margin-bottom:1rem}
+.sr-tabs{display:flex;gap:.32rem;margin-bottom:.85rem}
+.srt{flex:1;padding:.35rem .48rem;border:1.5px solid var(--s8);background:transparent;border-radius:var(--r);font-family:var(--f);font-size:.7rem;font-weight:600;cursor:pointer;color:var(--s5);transition:all .15s;text-align:center}
+.srt.on{background:var(--embg);border-color:var(--embd);color:var(--emd)}
+.srt:hover:not(.on){background:var(--s9)}
+.sr-ins{display:grid;grid-template-columns:1fr 1fr;gap:.52rem;margin-bottom:.85rem}
+.srf{padding:.5rem .76rem;border:1.5px solid var(--s8);border-radius:var(--r);font-family:var(--f);font-size:.78rem;background:var(--s10);color:var(--s1);outline:none;transition:border-color .15s;width:100%}
+.srf:focus{border-color:var(--em);background:#fff}
+.sr-map{background:linear-gradient(135deg,#092015,#0D2B1C);border-radius:var(--r);height:80px;position:relative;overflow:hidden;margin-bottom:.85rem}
+.sr-mgrid{position:absolute;inset:0;background-image:linear-gradient(rgba(16,185,129,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(16,185,129,.07) 1px,transparent 1px);background-size:16px 16px}
+.sr-rd{position:absolute;top:50%;left:0;right:0;height:2px;background:rgba(16,185,129,.3);transform:translateY(-50%)}
+.sr-rd2{position:absolute;top:calc(50% + 7px);left:0;right:0;height:1px;background:rgba(16,185,129,.1);transform:translateY(-50%)}
+.sr-car{position:absolute;top:50%;font-size:.95rem;transform:translateY(-58%);animation:srcar 5s linear infinite}
+@keyframes srcar{from{left:5%}to{left:86%}}
+.sr-pin{position:absolute;font-size:.75rem;top:18%}
+.sr-stats{display:flex;align-items:center;gap:.95rem;flex-wrap:wrap}
+.srsi .v{font-size:.98rem;font-weight:800;color:var(--s1);letter-spacing:-.02em;line-height:1}
+.srsi .l{font-size:.62rem;color:var(--s5);text-transform:uppercase;letter-spacing:.05em;margin-top:.1rem}
+.srd{width:1px;height:22px;background:var(--s8)}
+
+/* WEATHER */
+.wcrd{background:linear-gradient(135deg,#064E3B,#065F46);color:#fff;border-radius:var(--rl);padding:1.28rem}
+.wt{font-size:2.3rem;font-weight:800;line-height:1;letter-spacing:-.025em}
+.wdesc{font-size:.78rem;opacity:.65;margin:.16rem 0 .68rem}
+.wrow{display:flex;gap:.95rem;margin-bottom:.62rem}
+.wi{font-size:.7rem;opacity:.6}
+.wwarn{background:rgba(255,255,255,.09);border-radius:6px;padding:.42rem .68rem;font-size:.7rem;opacity:.82;line-height:1.55}
+
+/* NOTIF */
+.nlist{display:flex;flex-direction:column;gap:.42rem}
+.notif{display:flex;gap:.68rem;align-items:flex-start;padding:.62rem .8rem;border-radius:var(--r);background:var(--s10);border:1px solid var(--s8)}
+.notif.unrd{background:var(--blbg);border-color:var(--blbd)}
+.nico{font-size:.98rem;flex-shrink:0;margin-top:.06rem}
+.ntitle{font-size:.79rem;font-weight:600;margin-bottom:.07rem}
+.ntime{font-size:.67rem;color:var(--s6)}
+
+/* NEARBY */
+.ngrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:.72rem}
+.htile{background:var(--card);border:1px solid var(--bd);border-radius:var(--rl);padding:.95rem;text-align:center;cursor:pointer;transition:all .18s;box-shadow:var(--sh0)}
+.htile:hover{transform:translateY(-2px);box-shadow:var(--sh2);border-color:var(--embd)}
+.htico{font-size:1.5rem;margin-bottom:.32rem}
+.htname{font-size:.76rem;font-weight:700;color:var(--s1);margin-bottom:.1rem}
+.htdist{font-size:.68rem;color:var(--s5)}
+.htbdg{margin-top:.32rem}
+
+/* SOS PAGE */
+.sos-pg{background:var(--s10);min-height:100%}
+.sos-hero{background:linear-gradient(160deg,#080D09 0%,#0C1C10 50%,#080D09 100%);border-radius:0 0 var(--rxl) var(--rxl);padding:2.4rem 1.5rem;text-align:center;color:#fff;position:relative;overflow:hidden;margin-bottom:1.4rem}
+.sos-bg{position:absolute;inset:0;pointer-events:none}
+.sbr{position:absolute;border-radius:50%;border:1px solid rgba(220,38,38,.1);top:50%;left:50%;transform:translate(-50%,-50%)}
+.sos-hero h2{font-size:1.3rem;font-weight:800;letter-spacing:-.02em;margin-bottom:.18rem}
+.sos-hero p{font-size:.8rem;color:rgba(255,255,255,.38);margin-bottom:1.68rem}
+.sos-rw{position:relative;width:185px;height:185px;margin:0 auto 1.28rem;display:flex;align-items:center;justify-content:center}
+.sring{position:absolute;border-radius:50%;border:1.5px solid rgba(239,68,68,.2);animation:sring 2.8s ease-out infinite}
+.sring:nth-child(1){width:115px;height:115px}
+.sring:nth-child(2){width:152px;height:152px;animation-delay:.9s}
+.sring:nth-child(3){width:185px;height:185px;animation-delay:1.8s}
+@keyframes sring{0%{opacity:1;transform:scale(.55)}100%{opacity:0;transform:scale(1)}}
+.sos-btn{width:108px;height:108px;border-radius:50%;background:linear-gradient(145deg,var(--redl),var(--red));border:none;color:#fff;font-family:var(--f);font-size:1.78rem;font-weight:800;cursor:pointer;transition:all .15s;box-shadow:0 0 0 5px rgba(239,68,68,.14),0 8px 26px rgba(220,38,38,.38);position:relative;z-index:5}
+.sos-btn:hover{transform:scale(1.05);box-shadow:0 0 0 9px rgba(239,68,68,.15),0 12px 34px rgba(220,38,38,.48)}
+.sos-btn:active{transform:scale(.97)}
+.sos-btn.armed{animation:sosarm .45s ease infinite alternate}
+@keyframes sosarm{from{box-shadow:0 0 0 5px rgba(239,68,68,.14),0 8px 26px rgba(220,38,38,.38)}to{box-shadow:0 0 0 18px rgba(239,68,68,.18),0 8px 34px rgba(220,38,38,.62)}}
+.cd-box{text-align:center;margin-bottom:.45rem}
+.cd-lbl{font-size:.76rem;color:#EF4444;margin-bottom:.28rem}
+.cd-num{font-size:3rem;font-weight:800;color:#EF4444;line-height:1;letter-spacing:-.03em}
+.cd-trk{width:145px;height:3px;background:rgba(255,255,255,.08);border-radius:2px;margin:.42rem auto}
+.cd-fill{height:100%;background:#EF4444;border-radius:2px;transition:width .95s linear}
+.sos-actmsg{font-size:1.05rem;font-weight:800;color:#EF4444;animation:ld 1s infinite}
+.sos-acts{display:flex;gap:.52rem;justify-content:center;flex-wrap:wrap;margin-bottom:0}
+.sa{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.6);padding:.5rem .92rem;border-radius:var(--r);font-family:var(--f);font-size:.77rem;font-weight:600;cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:.38rem}
+.sa:hover{background:rgba(255,255,255,.13);color:#fff;border-color:rgba(255,255,255,.2)}
+.sa.active{background:rgba(34,197,94,.14);border-color:rgba(34,197,94,.28);color:#86EFAC}
+.sos-low{padding:0 1.5rem 1.8rem;max-width:880px;margin:0 auto}
+
+/* CIRCLE */
+.map-blk{background:linear-gradient(135deg,#0C1C10,#092015);border-radius:var(--rl);height:160px;position:relative;overflow:hidden}
+.mapgrid{position:absolute;inset:0;background-image:linear-gradient(rgba(16,185,129,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(16,185,129,.06) 1px,transparent 1px);background-size:17px 17px}
+.map-btm{position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.48);padding:.55rem .88rem;display:flex;align-items:center;justify-content:space-between}
+.mbdet{font-size:.68rem;color:#94A3B8}
+.mbstats{display:flex;gap:1.05rem}
+.mbs .v{font-size:.88rem;font-weight:800;color:#fff;line-height:1}
+.mbs .l{font-size:.58rem;color:#64748B;text-transform:uppercase;letter-spacing:.06em}
+.trow{display:flex;align-items:center;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid var(--s8);font-size:.8rem}
+.trow:last-child{border-bottom:none}
+.trname{font-weight:600;color:var(--s1)}.trmeta{font-size:.68rem;color:var(--s6)}
+
+/* HAZARD */
+.hzgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:.52rem;margin-bottom:1rem}
+.hztype{background:var(--card);border:2px solid var(--s8);border-radius:var(--r);padding:.78rem .52rem;text-align:center;cursor:pointer;transition:all .18s}
+.hztype:hover{border-color:var(--em)}.hztype.sel{border-color:var(--em);background:var(--embg)}
+.hzem{font-size:1.38rem;margin-bottom:.26rem}
+.hzlbl{font-size:.68rem;font-weight:600;color:var(--s5)}.hztype.sel .hzlbl{color:var(--emd)}
+.sevrow{display:flex;gap:.36rem;margin-top:.26rem}
+.sev{flex:1;padding:.38rem;border-radius:6px;border:1.5px solid var(--s8);text-align:center;cursor:pointer;font-size:.68rem;font-weight:700;transition:all .15s;color:var(--s5)}
+.sev:hover:not([class*="onl"]):not([class*="onm"]):not([class*="onh"]):not([class*="onc"]){background:var(--s9)}
+.onl{background:var(--embg);border-color:var(--embd);color:var(--emd)}
+.onm{background:var(--ambg);border-color:var(--ambd);color:var(--am)}
+.onh{background:var(--redbg);border-color:var(--redbd);color:var(--red)}
+.onc{background:var(--red);border-color:var(--red);color:#fff}
+.ritem{background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:.88rem;display:flex;gap:.78rem;align-items:flex-start;margin-bottom:.52rem;transition:all .18s;box-shadow:var(--sh0)}
+.ritem:hover{box-shadow:var(--sh2);transform:translateX(1px)}
+.rico{width:33px;height:33px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.98rem;flex-shrink:0}
+.rtitle{font-size:.8rem;font-weight:700;color:var(--s1);margin-bottom:.1rem}
+.rdet{font-size:.72rem;color:var(--s5);margin-bottom:.28rem;line-height:1.52}
+.upbtn{background:none;border:1px solid var(--s8);border-radius:6px;padding:.16rem .46rem;font-size:.67rem;cursor:pointer;color:var(--s5);display:inline-flex;align-items:center;gap:.2rem;transition:all .15s}
+.upbtn:hover{border-color:var(--em);color:var(--em)}
+.upbtn.voted{background:var(--embg);border-color:var(--embd);color:var(--emd)}
+.pdrop{border:2px dashed var(--s8);border-radius:var(--r);padding:1.1rem;text-align:center;cursor:pointer;color:var(--s5);font-size:.79rem;transition:all .18s}
+.pdrop:hover{border-color:var(--em);background:var(--embg);color:var(--emd)}
+
+/* MEDICAL */
+.med-card{background:linear-gradient(135deg,#064E3B 0%,#065F46 50%,#047857 100%);color:#fff;border-radius:var(--rxl);padding:1.78rem;position:relative;overflow:hidden;box-shadow:var(--sh4)}
+.med-card::before{content:"";position:absolute;top:-48px;right:-48px;width:170px;height:170px;border-radius:50%;background:rgba(255,255,255,.06)}
+.med-card::after{content:"";position:absolute;bottom:-32px;left:-22px;width:110px;height:110px;border-radius:50%;background:rgba(220,38,38,.07)}
+.mname{font-size:1.6rem;font-weight:800;letter-spacing:-.025em;margin-bottom:.1rem}
+.msub{font-size:.7rem;color:rgba(255,255,255,.45);margin-bottom:1.35rem}
+.mfields{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:.88rem}
+.mfl{font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.42);margin-bottom:.2rem}
+.mfv{font-size:.86rem;font-weight:600;color:rgba(255,255,255,.92)}
+.bchip{display:inline-block;background:var(--red);color:#fff;font-size:1.28rem;font-weight:800;padding:.09rem .58rem;border-radius:6px}
+.critblk{background:var(--redbg);border:1px solid var(--redbd);border-radius:var(--r);padding:.9rem}
+.critblk .ct{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin-bottom:.32rem}
+.critblk p{font-size:.79rem;color:#7F1D1D;line-height:1.62}
+.qrbox{background:var(--card);border:2px dashed var(--s8);border-radius:var(--rl);padding:1.55rem;text-align:center;cursor:pointer;transition:all .18s}
+.qrbox:hover{border-color:var(--em);background:var(--embg)}
+.qra{display:grid;grid-template-columns:repeat(9,1fr);gap:2px;width:92px;margin:0 auto .62rem}
+.qrb{background:var(--s1);border-radius:1px;aspect-ratio:1}
+.qrw{background:var(--s8);border-radius:1px;aspect-ratio:1}
+.tl{display:flex;gap:.88rem;align-items:flex-start}
+.tll{display:flex;flex-direction:column;align-items:center;flex-shrink:0}
+.tldot{width:9px;height:9px;border-radius:50%;background:var(--em);margin-top:3px;flex-shrink:0}
+.tlline{width:1px;flex:1;background:var(--s8);min-height:17px;margin-top:3px}
+.tlbody{flex:1;padding-bottom:.78rem}
+.tltitle{font-size:.79rem;font-weight:600;color:var(--s1);margin-bottom:.07rem}
+.tldet{font-size:.7rem;color:var(--s5)}
+
+/* PROFILE */
+.pbanner{background:linear-gradient(135deg,var(--s2),var(--s1));border-radius:var(--rxl);padding:1.78rem;color:#fff;display:flex;align-items:center;gap:1.28rem;margin-bottom:1.28rem;box-shadow:var(--sh2)}
+.pav{width:62px;height:62px;border-radius:50%;background:linear-gradient(135deg,var(--eml),var(--emd));display:flex;align-items:center;justify-content:center;font-size:1.45rem;font-weight:800;color:#fff;flex-shrink:0;border:3px solid rgba(255,255,255,.14)}
+.pname{font-size:1.3rem;font-weight:800;letter-spacing:-.025em;margin-bottom:.1rem}
+.pdet{font-size:.76rem;color:#94A3B8}
+.ppills{display:flex;gap:.36rem;flex-wrap:wrap;margin-top:.58rem}
+.pp{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.72);font-size:.63rem;font-weight:700;padding:.14rem .52rem;border-radius:20px;letter-spacing:.04em}
+.smi{background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:.9rem;text-align:center;box-shadow:var(--sh0)}
+.smi .sv{font-size:1.5rem;font-weight:800;letter-spacing:-.02em;line-height:1}
+.smi .sl{font-size:.67rem;color:var(--s5);margin-top:.16rem}
+.togrow{display:flex;align-items:center;justify-content:space-between;padding:.62rem 0}
+.togrow .trl{font-size:.84rem;font-weight:500;color:var(--s1)}
+.togrow .trs{font-size:.7rem;color:var(--s5)}
+.tog{width:35px;height:19px;border-radius:10px;background:var(--s7);position:relative;cursor:pointer;transition:background .18s;flex-shrink:0}
+.tog.on{background:var(--em)}
+.tog::after{content:"";position:absolute;width:13px;height:13px;border-radius:50%;background:#fff;top:3px;left:3px;transition:left .18s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.tog.on::after{left:19px}
+
+/* ADMIN */
+.admin-wrap{padding:1.65rem;max-width:1200px;margin:0 auto}
+.admin-top{background:var(--s2);color:#fff;border-radius:var(--rl);padding:1.28rem 1.65rem;display:flex;align-items:center;justify-content:space-between;margin-bottom:1.28rem;flex-wrap:wrap;gap:.85rem}
+.attl{font-size:1.2rem;font-weight:800;letter-spacing:-.025em}
+.atsub{font-size:.72rem;color:#64748B;margin-top:.08rem}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:.85rem;margin-bottom:1.28rem}
+.sbox{background:var(--card);border:1px solid var(--bd);border-radius:var(--rl);padding:1.1rem;box-shadow:var(--sh0)}
+.sblbl{font-size:.63rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--s5);margin-bottom:.36rem}
+.sbval{font-size:1.88rem;font-weight:800;letter-spacing:-.025em;line-height:1;color:var(--s1)}
+.sbsub{font-size:.68rem;color:var(--s6);margin-top:.16rem}
+.up{color:var(--em);font-weight:600}.dn{color:var(--red);font-weight:600}
+.spk{display:flex;align-items:flex-end;gap:2px;height:30px;margin-top:.52rem}
+.spkbar{flex:1;border-radius:2px 2px 0 0;min-width:4px;opacity:.55}
+.dtbl{width:100%;border-collapse:collapse;font-size:.77rem}
+.dtbl th{text-align:left;font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--s5);padding:.5rem .88rem;border-bottom:1px solid var(--bd)}
+.dtbl td{padding:.65rem .88rem;border-bottom:1px solid var(--s8);vertical-align:middle}
+.dtbl tr:last-child td{border-bottom:none}
+.dtbl tbody tr:hover td{background:var(--s10)}
+.pd{width:6px;height:6px;border-radius:50%;display:inline-block;margin-right:.36rem}.pdr{background:var(--redl)}.pdo{background:#F59E0B}.pdg{background:#22C55E}
+.prog{height:4px;background:var(--s8);border-radius:2px;overflow:hidden;margin-top:.26rem}
+.progf{height:100%;border-radius:2px}
+.amap{background:linear-gradient(135deg,#0C1C10,#092015);border-radius:var(--rl);height:168px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.amap::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(16,185,129,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(16,185,129,.06) 1px,transparent 1px);background-size:17px 17px}
+.adot{position:absolute;width:9px;height:9px;border-radius:50%;animation:adot 1.6s ease infinite}
+@keyframes adot{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.7);opacity:.4}}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .g2{grid-template-columns:1fr}
+  .auth-r{display:none}
+  .hero-stats{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:640px){
+  nav .nav-links{display:none}
+  .ham{display:flex;align-items:center}
+  .uname{display:none}
+  .g2,.g3{grid-template-columns:1fr}
+  .sr-ins{grid-template-columns:1fr}
+  .fgrid,.svc-row,.kpi-row,.sgrid{grid-template-columns:1fr 1fr}
+  .hero-stats{grid-template-columns:1fr 1fr}
+  .hero h1{font-size:2rem}
+  .sos-rw{width:168px;height:168px}
+  .sring:nth-child(1){width:105px;height:105px}
+  .sring:nth-child(2){width:138px;height:138px}
+  .sring:nth-child(3){width:168px;height:168px}
+  .sos-btn{width:96px;height:96px;font-size:1.5rem}
+  .ngrid,.hzgrid{grid-template-columns:repeat(3,1fr)}
+  .pw,.dash-wrap,.admin-wrap{padding:1.1rem}
+  .pbanner{flex-direction:column;text-align:center}
+}
+@media(max-width:400px){
+  .fgrid,.svc-row,.kpi-row,.sgrid,.ngrid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- NAV -->
+<nav>
+  <div class="brand" onclick="go('landing')">
+    <div class="bmark">&#128737;</div>
+    <span class="bname">Safety<span>Warriors</span></span>
+  </div>
+  <div class="nav-links">
+    <button class="nb on" id="nb-landing" onclick="go('landing')">Home</button>
+    <button class="nb" id="nb-dashboard" onclick="go('dashboard')">Dashboard</button>
+    <button class="nb" id="nb-circle" onclick="go('circle')">Circle</button>
+    <button class="nb" id="nb-hazard" onclick="go('hazard')">Hazards</button>
+    <button class="nb" id="nb-medical" onclick="go('medical')">Medical ID</button>
+    <button class="nb" id="nb-profile" onclick="go('profile')">Profile</button>
+    <button class="nb" id="nb-admin" onclick="go('admin')">Admin</button>
+    <button class="nb nbsos" onclick="go('sos')">&#128680; SOS</button>
+  </div>
+  <div class="navr">
+    <div class="upill" onclick="go('profile')"><div class="uav">RS</div><span class="uname">Rahul S.</span></div>
+    <button class="ham" onclick="toggleMob()" id="hamBtn">&#9776;</button>
+  </div>
+</nav>
+<div class="mobnav" id="mobNav">
+  <button class="mnb on" onclick="go('landing');closeMob()">&#127968; Home</button>
+  <button class="mnb" onclick="go('dashboard');closeMob()">Dashboard</button>
+  <button class="mnb" onclick="go('circle');closeMob()">&#128101; Circle of Trust</button>
+  <button class="mnb" onclick="go('hazard');closeMob()">&#9888;&#65039; Hazards</button>
+  <button class="mnb" onclick="go('medical');closeMob()">&#129658; Medical ID</button>
+  <button class="mnb" onclick="go('profile');closeMob()">Profile</button>
+  <button class="mnb" onclick="go('admin');closeMob()">Admin</button>
+  <button class="mnb mnbsos" onclick="go('sos');closeMob()">&#128680; Emergency SOS</button>
+</div>
+<div class="toast" id="toast"></div>
+
+<!-- ==================== LANDING ==================== -->
+<div class="page on" id="page-landing">
+  <div class="hero">
+    <div class="hero-accent"></div><div class="hero-tex"></div><div class="hero-dots"></div>
+    <div class="hero-in">
+      <div class="hero-kick">&#128737;&#65039; India's #1 Road Emergency Platform</div>
+      <h1>Every Road.<br><span class="acc">Every Emergency.</span><br><span class="grn">We've Got You.</span></h1>
+      <p class="hero-sub">Real-time crash detection, trusted circle coordination, community hazard mapping, and instant first-responder dispatch — all in one platform built for Indian roads.</p>
+      <div class="hero-ctas">
+        <button class="btn bem" onclick="go('auth')">&#128640; Get Protected Free</button>
+        <button class="btn bout" onclick="go('dashboard')">View Dashboard &#8594;</button>
+        <button class="btn boutred" onclick="go('sos')">&#128680; Try SOS Demo</button>
+      </div>
+      <div class="hero-stats">
+        <div class="hs"><div class="n">2.4M+</div><div class="l">Users Protected</div></div>
+        <div class="hs"><div class="n">18K</div><div class="l">SOS Activated</div></div>
+        <div class="hs"><div class="n">94K</div><div class="l">Hazards Mapped</div></div>
+        <div class="hs"><div class="n">4.2 min</div><div class="l">Avg Response</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="feat-sec">
+    <div class="feat-in">
+      <div class="shdr">
+        <div class="tag" style="margin-bottom:.42rem">Platform Features</div>
+        <h2>Everything You Need on the Road</h2>
+        <p>A comprehensive road emergency OS — designed for India, built for everyone who drives.</p>
+      </div>
+      <div class="fgrid">
+        <div class="fcard" onclick="go('sos')"><div class="ftop" style="background:var(--red)"></div><div class="ficon" style="background:var(--redbg)">&#128680;</div><h3>SOS Emergency Alert</h3><p>One-tap emergency with crash detection, 10-sec countdown, and instant contact + responder dispatch.</p><div style="margin-top:.82rem"><span class="bdg dred">Critical Feature</span></div></div>
+        <div class="fcard" onclick="go('circle')"><div class="ftop" style="background:var(--em)"></div><div class="ficon" style="background:var(--embg)">&#128101;</div><h3>Circle of Trust</h3><p>Live location sharing with trusted contacts, trip tracking, auto-alerts, and safety check-ins.</p><div style="margin-top:.82rem"><span class="bdg dem">Always-On</span></div></div>
+        <div class="fcard" onclick="go('hazard')"><div class="ftop" style="background:var(--am)"></div><div class="ficon" style="background:var(--ambg)">&#9888;&#65039;</div><h3>Community Hazard Map</h3><p>Crowdsourced pothole, accident, flood, and roadblock reporting with GPS tagging.</p><div style="margin-top:.82rem"><span class="bdg dam">Community</span></div></div>
+        <div class="fcard" onclick="go('dashboard')"><div class="ftop" style="background:var(--blue)"></div><div class="ficon" style="background:var(--blbg)">&#128205;</div><h3>Nearby Emergency Help</h3><p>Instantly find hospitals, police, ambulances, towing, and mechanics with one-tap calling.</p><div style="margin-top:.82rem"><span class="bdg dblue">Instant</span></div></div>
+        <div class="fcard" onclick="go('medical')"><div class="ftop" style="background:var(--em)"></div><div class="ficon" style="background:var(--embg)">&#129658;</div><h3>Medical ID & QR Code</h3><p>Emergency medical profile with blood group, allergies, and scannable QR for first responders.</p><div style="margin-top:.82rem"><span class="bdg dem">First Responder</span></div></div>
+        <div class="fcard" onclick="go('dashboard')"><div class="ftop" style="background:var(--em)"></div><div class="ficon" style="background:var(--embg)">&#128506;&#65039;</div><h3>SafeRoute Navigation</h3><p>Hazard-aware smart routing with real-time traffic, safety scoring, and community danger alerts.</p><div style="margin-top:.82rem"><span class="bdg dem">Integrated</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="how-sec">
+    <div class="how-in">
+      <div class="tag" style="margin-bottom:.42rem">How It Works</div>
+      <h2 style="font-size:1.6rem;font-weight:800;letter-spacing:-.025em;margin-bottom:.35rem">Up & Running in 4 Steps</h2>
+      <div class="how-grid">
+        <div class="hstep"><div class="snum">Step 01</div><h4>Create Your Profile</h4><p>Register with medical info, emergency contacts, and Circle of Trust. Under 3 minutes.</p></div>
+        <div class="hstep"><div class="snum">Step 02</div><h4>Drive with Confidence</h4><p>SafeRoute navigates around hazards. Your circle tracks your trip automatically.</p></div>
+        <div class="hstep"><div class="snum">Step 03</div><h4>Emergency? One Tap.</h4><p>Hit SOS. Crash auto-detected. Location broadcasts. Help dispatched immediately.</p></div>
+        <div class="hstep"><div class="snum">Step 04</div><h4>Community Stays Safe</h4><p>Report hazards you encounter. The whole community benefits in real time.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="testi-sec">
+    <div class="testi-in">
+      <div class="tag" style="margin-bottom:.42rem">Trusted by Warriors</div>
+      <h2 style="font-size:1.6rem;font-weight:800;letter-spacing:-.025em;margin-bottom:.35rem">What People Are Saying</h2>
+      <div class="tgrid">
+        <div class="tcard"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="tquote">"The SOS feature saved my brother's life on the expressway. Help arrived in under 6 minutes. This app is a must-have."</p><div class="tauth"><div class="taav" style="background:var(--blbg);color:var(--bld)">AK</div><div><div class="taname">Ankit Kulkarni</div><div class="taloc">Pune, Maharashtra</div></div></div></div>
+        <div class="tcard"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="tquote">"My daughter travels alone at night. Circle of Trust gives me real-time peace of mind. I can see her route live."</p><div class="tauth"><div class="taav" style="background:var(--embg);color:var(--emd)">RS</div><div><div class="taname">Rekha Sharma</div><div class="taloc">Delhi, NCR</div></div></div></div>
+        <div class="tcard"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div><p class="tquote">"SafeRoute routed me around a flooding zone I didn't know about. The hazard map is genuinely useful."</p><div class="tauth"><div class="taav" style="background:var(--ambg);color:var(--am)">VP</div><div><div class="taname">Vijay Prabhu</div><div class="taloc">Chennai, Tamil Nadu</div></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-sec">
+    <div class="cta-in">
+      <div class="tag">Join Today</div>
+      <h2>Start Your Protection Now</h2>
+      <p>Free for individuals. Takes 3 minutes. Could save your life.</p>
+      <div style="display:flex;gap:.72rem;justify-content:center;flex-wrap:wrap">
+        <button class="btn bem" onclick="go('auth')">&#128640; Create Free Account</button>
+        <button class="btn" style="background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.14)" onclick="go('dashboard')">Explore Demo &#8594;</button>
+      </div>
+    </div>
+  </div>
+  <div class="embar">
+    <span class="emitem">&#128680; Emergency: 112</span>
+    <span class="emitem">&#128657; Ambulance: 108</span>
+    <span class="emitem">&#128110; Police: 100</span>
+    <span class="emitem">&#128293; Fire: 101</span>
+    <span class="emitem">&#128739; Highway: 1033</span>
+  </div>
+  <footer>
+    <div class="ftlinks"><a href="#">About</a><a href="#">Safety Guide</a><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Contact</a></div>
+    <div class="ftcopy">&#169; 2024 Safety Warriors &middot; Road Emergency Platform &middot; Mumbai, India</div>
+  </footer>
+</div>
+
+<!-- ==================== AUTH ==================== -->
+<div class="page" id="page-auth">
+  <div class="auth-page">
+    <div class="auth-l">
+      <div class="auth-panel">
+        <div class="auth-brand"><div class="auth-logo">&#128737;</div><span class="auth-bn">Safety<span>Warriors</span></span></div>
+        <h2 class="auth-h" id="auth-h">Create your account</h2>
+        <p class="auth-sub" id="auth-sub">Set up your emergency profile &mdash; takes under 3 minutes</p>
+        <div class="tabbar">
+          <button class="ftab on" id="ftab-reg" onclick="ftab('reg')">Create Account</button>
+          <button class="ftab" id="ftab-login" onclick="ftab('login')">Sign In</button>
+        </div>
+        <div id="reg-form">
+          <span class="slbl">Personal Info</span>
+          <div class="g2">
+            <div class="fg"><label>Full Name</label><input type="text" placeholder="Rahul Sharma"/></div>
+            <div class="fg"><label>Age</label><input type="number" placeholder="28"/></div>
+          </div>
+          <div class="g2">
+            <div class="fg"><label>Phone Number</label><input type="tel" placeholder="+91 98765 43210"/></div>
+            <div class="fg"><label>Blood Group</label><select><option value="">Select</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>O+</option><option>O-</option><option>AB+</option><option>AB-</option></select></div>
+          </div>
+          <div class="fg"><label>Medical Complications / Allergies</label><textarea placeholder="e.g. Diabetic, Penicillin allergy, Asthma..."></textarea></div>
+          <span class="slbl">Parent / Guardian</span>
+          <div class="g2">
+            <div class="fg"><label>Guardian Name</label><input type="text" placeholder="Suresh Sharma"/></div>
+            <div class="fg"><label>Relationship</label><input type="text" placeholder="Father"/></div>
+          </div>
+          <div class="fg"><label>Guardian Phone</label><input type="tel" placeholder="+91 98765 00000"/></div>
+          <span class="slbl">3 Emergency Contacts</span>
+          <div class="fg"><label>Contact 1</label><input type="tel" placeholder="+91 98765 11111"/></div>
+          <div class="fg"><label>Contact 2</label><input type="tel" placeholder="+91 98765 22222"/></div>
+          <div class="fg"><label>Contact 3</label><input type="tel" placeholder="+91 98765 33333"/></div>
+          <span class="slbl">Circle of Trust</span>
+          <div class="g2">
+            <div class="fg"><label>Trusted Contact</label><input type="text" placeholder="Priya Patel"/></div>
+            <div class="fg"><label>Relationship</label><input type="text" placeholder="Best Friend"/></div>
+          </div>
+          <div class="fg"><label>Trusted Contact Phone</label><input type="tel" placeholder="+91 98765 44444"/></div>
+          <div class="fg"><label>Password</label><input type="password" placeholder="Create a strong password"/></div>
+          <button class="btn bem" style="width:100%;justify-content:center;font-size:.88rem;margin-top:.22rem" onclick="doReg()">&#128737; Activate My Protection</button>
+          <p style="text-align:center;font-size:.73rem;color:var(--s6);margin-top:.72rem">By registering you agree to our <a href="#" style="color:var(--em)">Terms</a></p>
+        </div>
+        <div id="login-form" style="display:none">
+          <div style="height:.42rem"></div>
+          <div class="fg"><label>Phone Number</label><input type="tel" placeholder="+91 98765 43210"/></div>
+          <div class="fg"><label>Password</label><input type="password" placeholder="Your password"/></div>
+          <button class="btn bem" style="width:100%;justify-content:center;font-size:.88rem" onclick="doLogin()">Sign In &#8594;</button>
+          <p style="text-align:center;font-size:.77rem;color:var(--s5);margin-top:.88rem">Forgot password? <a href="#" style="color:var(--em)">Reset via OTP</a></p>
+        </div>
+      </div>
+    </div>
+    <div class="auth-r">
+      <div class="ar-pat"></div>
+      <div class="ar-con">
+        <div class="ar-icon">&#128737;</div>
+        <h2 class="ar-h">Road safety starts with <span>one registration</span></h2>
+        <p class="ar-p">Join 2.4 million Indians who drive with confidence knowing help is always one tap away.</p>
+        <div class="ar-feats">
+          <div class="ar-feat"><div class="ar-dot"></div>AI-powered crash detection</div>
+          <div class="ar-feat"><div class="ar-dot"></div>Live location sharing with trusted circle</div>
+          <div class="ar-feat"><div class="ar-dot"></div>Medical ID accessible to first responders</div>
+          <div class="ar-feat"><div class="ar-dot"></div>Community hazard map — real time</div>
+          <div class="ar-feat"><div class="ar-dot"></div>SafeRoute: hazard-aware smart navigation</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== DASHBOARD ==================== -->
+<div class="page" id="page-dashboard">
+  <div class="dash-wrap">
+    <div class="dash-top">
+      <div class="dash-greet"><h1>Welcome back, Rahul &#128075;</h1><p>Mumbai, MH &middot; Friday, 6 December 2024</p></div>
+      <div class="fl" style="gap:.62rem;flex-wrap:wrap">
+        <div class="stpill"><div class="ldot"></div><span>Protection Active</span></div>
+        <button class="btn bsm bout" onclick="toast('3 unread notifications','')">&#128276; 3 Alerts</button>
+      </div>
+    </div>
+    <div class="kpi-row">
+      <div class="kpi"><div class="kstripe" style="background:var(--red)"></div><div class="klbl">Active SOS Nearby</div><div class="kval" style="color:var(--red)">3</div><div class="ksub">+2 this hour</div></div>
+      <div class="kpi"><div class="kstripe" style="background:var(--am)"></div><div class="klbl">Hazard Reports</div><div class="kval" style="color:var(--am)">47</div><div class="ksub">4 near you</div></div>
+      <div class="kpi"><div class="kstripe" style="background:var(--blue)"></div><div class="klbl">Warriors Online</div><div class="kval" style="color:var(--blue)">1,284</div><div class="ksub">In your city</div></div>
+      <div class="kpi"><div class="kstripe" style="background:var(--em)"></div><div class="klbl">Safety Score</div><div class="kval" style="color:var(--em)">9.1</div><div class="ksub">Your route today</div></div>
+    </div>
+    <div class="svc-row">
+      <div class="svc svc-sos" onclick="go('sos')"><div class="sicon">&#128680;</div><h3>Emergency SOS</h3><p>Tap to activate instantly</p></div>
+      <div class="svc" onclick="go('circle')"><div class="sicon">&#128101;</div><h3>Circle of Trust</h3><p>3 contacts active</p></div>
+      <div class="svc" onclick="go('hazard')"><div class="sicon">&#9888;&#65039;</div><h3>Report Hazard</h3><p>4 alerts near you</p></div>
+      <div class="svc" onclick="toast('Opening help map...','')"><div class="sicon">&#128205;</div><h3>Nearby Help</h3><p>Hospital 1.2 km away</p></div>
+      <div class="svc" onclick="go('medical')"><div class="sicon">&#129658;</div><h3>Medical ID</h3><p>B+ &middot; Profile complete</p></div>
+    </div>
+    <div class="g2" style="margin-bottom:1.1rem">
+      <!-- SAFEROUTE MODULE -->
+      <div class="sr-wrap">
+        <div class="sr-hdr">
+          <div class="sr-badge">&#128506;</div>
+          <div class="sr-title">SafeRoute Module</div>
+          <div style="margin-left:auto"><span class="bdg dem">Active</span></div>
+        </div>
+        <p class="sr-sub">Hazard-aware smart navigation &middot; Integrated module</p>
+        <div class="sr-tabs">
+          <div class="srt on" onclick="selRT(this)">&#128739; Safest</div>
+          <div class="srt" onclick="selRT(this)">&#9889; Fastest</div>
+          <div class="srt" onclick="selRT(this)">&#9981; Eco</div>
+        </div>
+        <div class="sr-ins">
+          <input class="srf" type="text" placeholder="&#128205; From: Your Location"/>
+          <input class="srf" type="text" placeholder="&#127945; To: Destination"/>
+        </div>
+        <div class="sr-map">
+          <div class="sr-mgrid"></div><div class="sr-rd"></div><div class="sr-rd2"></div>
+          <span class="sr-car">&#128663;</span>
+          <span class="sr-pin" style="left:35%">&#9888;&#65039;</span>
+          <span class="sr-pin" style="left:61%">&#128371;</span>
+          <span style="position:relative;z-index:1;font-size:.68rem;color:rgba(255,255,255,.28)">Route Preview</span>
+        </div>
+        <div class="sr-stats">
+          <div class="srsi"><div class="v">14 km</div><div class="l">Distance</div></div>
+          <div class="srd"></div>
+          <div class="srsi"><div class="v">22 min</div><div class="l">ETA</div></div>
+          <div class="srd"></div>
+          <div class="srsi"><div class="v">2 &#9888;</div><div class="l">Avoided</div></div>
+          <div class="srd"></div>
+          <div class="srsi"><div class="v">9.1</div><div class="l">Safety</div></div>
+          <div style="margin-left:auto"><button class="btn bsm bem" onclick="toast('SafeRoute navigation started!','ok')">Navigate &#8594;</button></div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:.95rem">
+        <div class="wcrd">
+          <div class="fb"><div><div class="wt">28&deg;C</div><div class="wdesc">Partly Cloudy &middot; Mumbai, MH</div></div><div style="font-size:2.1rem">&#9925;</div></div>
+          <div class="wrow"><div class="wi">&#128167; Humidity 74%</div><div class="wi">&#128168; Wind 12 km/h</div><div class="wi">&#128065; Vis 8 km</div></div>
+          <div class="wwarn">&#9888;&#65039; Light rain expected 3&ndash;5 PM. Drive carefully on wet roads.</div>
+        </div>
+        <div class="card" style="flex:1">
+          <div class="fb" style="margin-bottom:.78rem"><div style="font-size:.88rem;font-weight:700;letter-spacing:-.01em">&#128276; Notifications</div><button class="btn bxs bout" onclick="toast('All read','ok')">Mark read</button></div>
+          <div class="nlist">
+            <div class="notif unrd"><div class="nico">&#128680;</div><div><div class="ntitle">SOS Alert nearby &mdash; Bandra</div><div class="ntime">8 minutes ago</div></div></div>
+            <div class="notif unrd"><div class="nico">&#9888;&#65039;</div><div><div class="ntitle">New pothole on SV Road</div><div class="ntime">23 minutes ago</div></div></div>
+            <div class="notif"><div class="nico">&#9989;</div><div><div class="ntitle">Priya Patel arrived safely</div><div class="ntime">1 hour ago</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="fb" style="margin-bottom:.9rem">
+        <div style="font-size:.88rem;font-weight:700;letter-spacing:-.01em">&#128205; Nearest Emergency Services</div>
+        <div class="fl" style="gap:.38rem;font-size:.68rem;font-weight:700;color:var(--emd)"><div class="ldot"></div>LIVE</div>
+      </div>
+      <div class="ngrid">
+        <div class="htile" onclick="toast('Calling Apollo Hospital...','')"><div class="htico">&#127973;</div><div class="htname">Apollo Hospital</div><div class="htdist">1.2 km &middot; 4 min</div><div class="htbdg"><span class="bdg dem">Available</span></div></div>
+        <div class="htile" onclick="toast('Calling Police...','')"><div class="htico">&#128110;</div><div class="htname">Andheri Police</div><div class="htdist">0.8 km &middot; 3 min</div><div class="htbdg"><span class="bdg dem">On Duty</span></div></div>
+        <div class="htile" onclick="toast('Ambulance dispatched!','ok')"><div class="htico">&#128657;</div><div class="htname">City Ambulance</div><div class="htdist">2.1 km &middot; 7 min</div><div class="htbdg"><span class="bdg dem">Available</span></div></div>
+        <div class="htile" onclick="toast('Towing notified!','')"><div class="htico">&#128665;</div><div class="htname">Mumbai Towing</div><div class="htdist">1.8 km &middot; 6 min</div><div class="htbdg"><span class="bdg dem">Available</span></div></div>
+        <div class="htile" onclick="toast('Mechanic contacted!','')"><div class="htico">&#128295;</div><div class="htname">QuickFix Garage</div><div class="htdist">0.5 km &middot; 2 min</div><div class="htbdg"><span class="bdg dem">Open</span></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SOS ==================== -->
+<div class="page" id="page-sos">
+  <div class="sos-pg">
+    <div class="sos-hero">
+      <div class="sos-bg"><div class="sbr" style="width:260px;height:260px"></div><div class="sbr" style="width:450px;height:450px"></div></div>
+      <h2>&#128680; Emergency SOS</h2>
+      <p>Press to activate &middot; Help dispatched in under 5 minutes</p>
+      <div id="sos-cd" style="display:none">
+        <div class="cd-box"><div class="cd-lbl">Activating SOS in...</div><div class="cd-num" id="cd-num">10</div><div class="cd-trk"><div class="cd-fill" id="cd-fill" style="width:100%"></div></div></div>
+        <div style="display:flex;justify-content:center;margin-top:.62rem"><button class="sa" onclick="cancelSOS()">&#10005; Cancel SOS</button></div>
+      </div>
+      <div id="sos-act" style="display:none"><div class="sos-actmsg">&#128680; SOS ACTIVATED &mdash; HELP ON THE WAY</div></div>
+      <div class="sos-rw" id="sos-rings">
+        <div class="sring"></div><div class="sring"></div><div class="sring"></div>
+        <button class="sos-btn" id="sos-btn" onclick="activateSOS()">SOS</button>
+      </div>
+      <div class="sos-acts">
+        <button class="sa" onclick="simCrash()">&#128165; Simulate Crash</button>
+        <button class="sa" id="loc-btn" onclick="shareLoc()">&#128205; Share Location</button>
+        <button class="sa" onclick="toast('Dialing 112...','err')">&#128222; Call 112</button>
+        <button class="sa" onclick="toast('Calling 108...','')">&#128657; Ambulance 108</button>
+      </div>
+    </div>
+    <div class="sos-low">
+      <p style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--s5);margin-bottom:.78rem">Nearest Emergency Services</p>
+      <div class="gauto" style="margin-bottom:1.28rem">
+        <div class="htile" onclick="toast('Calling Apollo...','')"><div class="htico">&#127973;</div><div class="htname">Apollo Hospital</div><div class="htdist">1.2 km &middot; 4 min</div><div class="htbdg"><span class="bdg dem">Available</span></div></div>
+        <div class="htile" onclick="toast('Calling Police...','')"><div class="htico">&#128110;</div><div class="htname">Andheri Police</div><div class="htdist">0.8 km &middot; 3 min</div><div class="htbdg"><span class="bdg dem">On Duty</span></div></div>
+        <div class="htile" onclick="toast('Ambulance!','ok')"><div class="htico">&#128657;</div><div class="htname">City Ambulance</div><div class="htdist">2.1 km &middot; 7 min</div><div class="htbdg"><span class="bdg dem">Available</span></div></div>
+        <div class="htile" onclick="toast('Towing!','')"><div class="htico">&#128665;</div><div class="htname">Mumbai Towing</div><div class="htdist">1.8 km &middot; 6 min</div><div class="htbdg"><span class="bdg dem">Available</span></div></div>
+        <div class="htile" onclick="toast('Mechanic!','')"><div class="htico">&#128295;</div><div class="htname">QuickFix</div><div class="htdist">0.5 km &middot; 2 min</div><div class="htbdg"><span class="bdg dem">Open</span></div></div>
+      </div>
+      <div class="card">
+        <div class="fb" style="margin-bottom:.78rem"><div style="font-size:.88rem;font-weight:700">&#128222; Emergency Contacts</div><span class="bdg dgray">Notified on SOS</span></div>
+        <div class="crow"><div class="av" style="width:34px;height:34px;background:var(--blbg);color:var(--bld)">SS</div><div style="flex:1"><div style="font-size:.8rem;font-weight:600">Suresh Sharma (Father)</div><div style="font-size:.68rem;color:var(--s5)">+91 98765 00000</div></div><span class="bdg dgray" id="sc1">Standby</span></div>
+        <div class="crow"><div class="av" style="width:34px;height:34px;background:var(--embg);color:var(--emd)">PP</div><div style="flex:1"><div style="font-size:.8rem;font-weight:600">Priya Patel (Friend)</div><div style="font-size:.68rem;color:var(--s5)">+91 98765 44444</div></div><span class="bdg dgray" id="sc2">Standby</span></div>
+        <div class="crow"><div class="av" style="width:34px;height:34px;background:var(--ambg);color:var(--am)">MR</div><div style="flex:1"><div style="font-size:.8rem;font-weight:600">Meena Rao (Colleague)</div><div style="font-size:.68rem;color:var(--s5)">+91 98765 55555</div></div><span class="bdg dgray" id="sc3">Standby</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== CIRCLE ==================== -->
+<div class="page" id="page-circle">
+  <div class="pw">
+    <div class="ph"><h1>&#128101; Circle of Trust</h1><p>Your trusted network &mdash; always in the loop</p></div>
+    <div class="g2">
+      <div>
+        <div class="card" style="margin-bottom:.95rem">
+          <div class="fb" style="margin-bottom:.88rem"><div style="font-size:.88rem;font-weight:700">Trusted Contacts</div><button class="btn bsm bem" onclick="toast('Add contact form opened','ok')">+ Add</button></div>
+          <div class="crow"><div class="av" style="width:35px;height:35px;background:var(--blbg);color:var(--bld)">PP</div><div style="flex:1"><div style="font-size:.8rem;font-weight:600">Priya Patel</div><div style="font-size:.68rem;color:var(--s5)">Best Friend &middot; +91 98765 44444</div></div><span class="bdg dem">&#11044; Active</span></div>
+          <div class="crow"><div class="av" style="width:35px;height:35px;background:var(--embg);color:var(--emd)">SS</div><div style="flex:1"><div style="font-size:.8rem;font-weight:600">Suresh Sharma</div><div style="font-size:.68rem;color:var(--s5)">Father &middot; +91 98765 00000</div></div><span class="bdg dem">&#11044; Active</span></div>
+          <div class="crow"><div class="av" style="width:35px;height:35px;background:var(--ambg);color:var(--am)">MR</div><div style="flex:1"><div style="font-size:.8rem;font-weight:600">Meena Rao</div><div style="font-size:.68rem;color:var(--s5)">Colleague &middot; +91 98765 55555</div></div><span class="bdg dam">Away</span></div>
+          <div class="crow"><div class="av" style="width:35px;height:35px;background:#F3E5F5;color:#7B1FA2">AK</div><div style="flex:1"><div style="font-size:.8rem;font-weight:600">Amit Kumar</div><div style="font-size:.68rem;color:var(--s5)">Brother &middot; +91 98765 66666</div></div><span class="bdg dem">&#11044; Active</span></div>
+        </div>
+        <div class="card">
+          <div style="font-size:.88rem;font-weight:700;margin-bottom:.72rem">&#128276; Send Alert</div>
+          <div style="display:flex;flex-direction:column;gap:.42rem">
+            <button class="btn boutred" style="justify-content:center" onclick="toast('Emergency alert sent!','err')">&#128680; Emergency Alert &mdash; All Contacts</button>
+            <button class="btn bout" style="justify-content:center" onclick="toast('Location shared!','ok')">&#128205; Share My Location Now</button>
+            <button class="btn boutem" style="justify-content:center" onclick="toast('Safe status sent!','ok')">&#9989; Send "I'm Safe"</button>
+            <button class="btn bout" style="justify-content:center" onclick="toast('Trip tracking started!','ok')">&#128663; Start Trip Tracking</button>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="card" style="margin-bottom:.95rem">
+          <div class="fb" style="margin-bottom:.78rem"><div style="font-size:.88rem;font-weight:700">&#128506; Live Location</div><div class="fl" style="gap:.38rem;font-size:.68rem;font-weight:700;color:var(--emd)"><div class="ldot"></div>TRACKING</div></div>
+          <div class="map-blk" style="margin-bottom:.78rem">
+            <div class="mapgrid"></div>
+            <svg style="position:absolute;inset:0;width:100%;height:100%" viewBox="0 0 300 160" preserveAspectRatio="none">
+              <path d="M20,80 Q62,42 110,70 Q155,100 198,60 Q238,30 280,80" fill="none" stroke="#10B981" stroke-width="2" stroke-dasharray="6 3" opacity=".8"/>
+              <circle cx="20" cy="80" r="6" fill="#22C55E"/>
+              <circle cx="280" cy="80" r="6" fill="#EF4444"/>
+              <circle cx="152" cy="65" r="4" fill="#F59E0B"/>
+              <circle cx="152" cy="65" r="11" fill="none" stroke="#F59E0B" stroke-width="1.5" opacity=".5"/>
+            </svg>
+            <div class="map-btm">
+              <div class="mbdet">Home &#8594; Andheri Office</div>
+              <div class="mbstats">
+                <div class="mbs"><div class="v">14km</div><div class="l">Dist</div></div>
+                <div class="mbs"><div class="v">22m</div><div class="l">ETA</div></div>
+                <div class="mbs"><div class="v">3</div><div class="l">Watching</div></div>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex;gap:.48rem;flex-wrap:wrap">
+            <button class="btn bsm bem" onclick="toast('Live sharing started!','ok')">Start Sharing</button>
+            <button class="btn bsm bout" onclick="toast('Stopped','')">Stop</button>
+            <button class="btn bsm bout" onclick="toast('History opened','')">History</button>
+          </div>
+        </div>
+        <div class="card">
+          <div style="font-size:.88rem;font-weight:700;margin-bottom:.82rem">&#128203; Recent Trips</div>
+          <div class="trow"><div><div class="trname">Home &#8594; Office</div><div class="trmeta">Today, 08:42 AM &middot; 14 km</div></div><span class="bdg dem">Safe</span></div>
+          <div class="trow"><div><div class="trname">Office &#8594; Mall</div><div class="trmeta">Yesterday, 06:15 PM &middot; 8 km</div></div><span class="bdg dem">Safe</span></div>
+          <div class="trow"><div><div class="trname">Pune Highway</div><div class="trmeta">Dec 2, 10:30 AM &middot; 155 km</div></div><span class="bdg dam">1 Alert</span></div>
+          <div class="trow" style="border-bottom:none"><div><div class="trname">Night Drive &mdash; Bandra</div><div class="trmeta">Dec 1, 11:00 PM &middot; 6 km</div></div><span class="bdg dem">Safe</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== HAZARD ==================== -->
+<div class="page" id="page-hazard">
+  <div class="pw">
+    <div class="ph"><h1>&#9888;&#65039; Report Road Hazard</h1><p>Help your community stay safe by reporting road dangers</p></div>
+    <div class="g2">
+      <div>
+        <div class="card" style="margin-bottom:.95rem">
+          <div style="font-size:.88rem;font-weight:700;margin-bottom:.82rem">Select Hazard Type</div>
+          <div class="hzgrid">
+            <div class="hztype sel" onclick="selHz(this)"><div class="hzem">&#128371;</div><div class="hzlbl">Pothole</div></div>
+            <div class="hztype" onclick="selHz(this)"><div class="hzem">&#128165;</div><div class="hzlbl">Accident</div></div>
+            <div class="hztype" onclick="selHz(this)"><div class="hzem">&#128679;</div><div class="hzlbl">Roadblock</div></div>
+            <div class="hztype" onclick="selHz(this)"><div class="hzem">&#127754;</div><div class="hzlbl">Waterlogging</div></div>
+            <div class="hztype" onclick="selHz(this)"><div class="hzem">&#9928;&#65039;</div><div class="hzlbl">Bad Weather</div></div>
+            <div class="hztype" onclick="selHz(this)"><div class="hzem">&#128663;</div><div class="hzlbl">Breakdown</div></div>
+          </div>
+          <div class="fg"><label>Location / Landmark</label><input type="text" placeholder="e.g. Near Andheri Station, SV Road" id="hz-loc"/></div>
+          <div class="fg"><label>Description</label><textarea placeholder="Describe the hazard clearly..." id="hz-desc"></textarea></div>
+          <div class="fg">
+            <label>Severity</label>
+            <div class="sevrow">
+              <div class="sev" onclick="selSev(this,'l')">Low</div>
+              <div class="sev onm" onclick="selSev(this,'m')">Medium</div>
+              <div class="sev" onclick="selSev(this,'h')">High</div>
+              <div class="sev" onclick="selSev(this,'c')">Critical</div>
+            </div>
+          </div>
+          <div class="fg"><label>Photo (Optional)</label><div class="pdrop" onclick="toast('Camera opened','')">&#128247; Tap to add photo &middot; Helps verify the report</div></div>
+          <div style="display:flex;gap:.58rem">
+            <button class="btn bem" style="flex:1;justify-content:center" onclick="submitHz()">Submit Report</button>
+            <button class="btn bout" onclick="toast('Location auto-detected!','ok')">&#128205; Auto-Detect</button>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="card">
+          <div class="fb" style="margin-bottom:.88rem">
+            <div style="font-size:.88rem;font-weight:700">Live Reports Near You</div>
+            <div class="fl" style="gap:.48rem"><span class="bdg dred">4 Active</span><div class="ldot"></div></div>
+          </div>
+          <div class="scroll" style="max-height:480px">
+            <div class="ritem"><div class="rico" style="background:var(--ambg)">&#128371;</div><div style="flex:1"><div class="rtitle">Large pothole &mdash; SV Road</div><div class="rdet">Near Andheri overbridge, Northbound lane</div><div class="fl" style="gap:.32rem"><span class="bdg dam">High</span><span style="font-size:.67rem;color:var(--s6)">0.4 km &middot; 23 min</span><button class="upbtn" onclick="upvote(this)">&#9650; 14</button></div></div></div>
+            <div class="ritem"><div class="rico" style="background:var(--redbg)">&#128165;</div><div style="flex:1"><div class="rtitle">Minor accident &mdash; 2 vehicles</div><div class="rdet">WEH near D-Mart, lane 1 partially blocked</div><div class="fl" style="gap:.32rem"><span class="bdg dred">Critical</span><span style="font-size:.67rem;color:var(--s6)">1.1 km &middot; 47 min</span><button class="upbtn" onclick="upvote(this)">&#9650; 31</button></div></div></div>
+            <div class="ritem"><div class="rico" style="background:var(--blbg)">&#127754;</div><div style="flex:1"><div class="rtitle">Waterlogging &mdash; Juhu Circle</div><div class="rdet">Underpass, both entry sides flooded</div><div class="fl" style="gap:.32rem"><span class="bdg dblue">Medium</span><span style="font-size:.67rem;color:var(--s6)">2.3 km &middot; 1.5 hrs</span><button class="upbtn" onclick="upvote(this)">&#9650; 8</button></div></div></div>
+            <div class="ritem"><div class="rico" style="background:var(--embg)">&#128679;</div><div style="flex:1"><div class="rtitle">Construction diversion &mdash; Link Rd</div><div class="rdet">Goregaon, left lane closed till Dec 15</div><div class="fl" style="gap:.32rem"><span class="bdg dem">Low</span><span style="font-size:.67rem;color:var(--s6)">3.0 km &middot; 3 hrs</span><button class="upbtn" onclick="upvote(this)">&#9650; 5</button></div></div></div>
+            <div class="ritem" style="margin-bottom:0"><div class="rico" style="background:var(--ambg)">&#9928;&#65039;</div><div style="flex:1"><div class="rtitle">Heavy rain &mdash; poor visibility</div><div class="rdet">Bandra-Worli Sea Link, strong crosswinds</div><div class="fl" style="gap:.32rem"><span class="bdg dam">High</span><span style="font-size:.67rem;color:var(--s6)">4.2 km &middot; 4 hrs</span><button class="upbtn" onclick="upvote(this)">&#9650; 22</button></div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== MEDICAL ==================== -->
+<div class="page" id="page-medical">
+  <div class="pw">
+    <div class="ph"><h1>&#129658; Medical ID</h1><p>Your emergency health profile &mdash; accessible to first responders instantly</p></div>
+    <div class="g2">
+      <div>
+        <div class="med-card" style="margin-bottom:.95rem">
+          <div class="mname">Rahul Sharma</div>
+          <div class="msub">Emergency Profile &middot; Safety Warriors &middot; ID: SW-2024-78432</div>
+          <div class="mfields">
+            <div><div class="mfl">Blood Group</div><div class="mfv"><span class="bchip">B+</span></div></div>
+            <div><div class="mfl">Age</div><div class="mfv">28 years</div></div>
+            <div><div class="mfl">Height / Weight</div><div class="mfv">175 cm / 72 kg</div></div>
+            <div><div class="mfl">Allergies</div><div class="mfv">Penicillin, Dust</div></div>
+            <div><div class="mfl">Conditions</div><div class="mfv">Mild Hypertension</div></div>
+            <div><div class="mfl">Medications</div><div class="mfv">Amlodipine 5mg</div></div>
+            <div><div class="mfl">Insurance ID</div><div class="mfv">STAR-2024-78432</div></div>
+            <div><div class="mfl">Organ Donor</div><div class="mfv" style="color:#6EE7B7">Yes &#10003;</div></div>
+          </div>
+        </div>
+        <div class="critblk" style="margin-bottom:.95rem">
+          <div class="ct">&#9888;&#65039; Critical &mdash; First Responders Read</div>
+          <p>DO NOT administer Penicillin or related antibiotics. Patient has mild hypertension &mdash; monitor BP. Blood type B+ only. Last updated: Dec 4, 2024.</p>
+        </div>
+        <div class="card">
+          <div style="font-size:.88rem;font-weight:700;margin-bottom:.82rem">&#128222; Emergency Contacts</div>
+          <div class="crow"><div class="av" style="width:34px;height:34px;background:var(--blbg);color:var(--bld)">SS</div><div style="flex:1"><div style="font-size:.8rem;font-weight:600">Suresh Sharma</div><div style="font-size:.68rem;color:var(--s5)">Father &middot; +91 98765 00000</div></div><button class="ibtn" onclick="toast('Calling...','')">&#128222;</button></div>
+          <div class="crow"><div class="av" style="width:34px;height:34px;background:#F3E5F5;color:#7B1FA2">MS</div><div style="flex:1"><div style="font-size:.8rem;font-weight:600">Meena Sharma</div><div style="font-size:.68rem;color:var(--s5)">Mother &middot; +91 98765 66666</div></div><button class="ibtn" onclick="toast('Calling...','')">&#128222;</button></div>
+          <div class="crow"><div class="av" style="width:34px;height:34px;background:var(--embg);color:var(--emd)">DS</div><div style="flex:1"><div style="font-size:.8rem;font-weight:600">Dr. Sameer Iyer</div><div style="font-size:.68rem;color:var(--s5)">Doctor &middot; +91 98765 77777</div></div><button class="ibtn" onclick="toast('Calling Dr. Iyer...','')">&#128222;</button></div>
+        </div>
+      </div>
+      <div>
+        <div class="card" style="margin-bottom:.95rem;text-align:center">
+          <div style="font-size:.88rem;font-weight:700;margin-bottom:.82rem">&#128241; Emergency QR Code</div>
+          <div class="qrbox" onclick="toast('QR shared!','ok')">
+            <div class="qra" id="qr-art"></div>
+            <div style="font-size:.77rem;color:var(--s5);margin-bottom:.3rem">Scan for emergency profile</div>
+            <div style="font-size:.67rem;font-family:monospace;color:var(--s6)">SW-ID: 2024-RS-78432</div>
+          </div>
+          <div style="display:flex;gap:.52rem;margin-top:.82rem">
+            <button class="btn bsm bem" style="flex:1;justify-content:center" onclick="toast('Downloaded!','ok')">Download QR</button>
+            <button class="btn bsm bout" onclick="toast('Shared!','ok')">Share</button>
+          </div>
+        </div>
+        <div class="card" style="margin-bottom:.95rem">
+          <div style="font-size:.88rem;font-weight:700;margin-bottom:.82rem">&#127973; Medical Timeline</div>
+          <div class="tl"><div class="tll"><div class="tldot"></div><div class="tlline"></div></div><div class="tlbody"><div class="tltitle">Annual Health Checkup</div><div class="tldet">Nov 2024 &middot; All normal, BP slightly elevated</div></div></div>
+          <div class="tl"><div class="tll"><div class="tldot" style="background:var(--am)"></div><div class="tlline"></div></div><div class="tlbody"><div class="tltitle">Hypertension Diagnosed</div><div class="tldet">Mar 2023 &middot; Started Amlodipine 5mg daily</div></div></div>
+          <div class="tl"><div class="tll"><div class="tldot" style="background:var(--s6)"></div></div><div class="tlbody"><div class="tltitle">Penicillin Allergy Confirmed</div><div class="tldet">Jan 2020 &middot; Mild reaction recorded</div></div></div>
+        </div>
+        <div class="card">
+          <div style="font-size:.88rem;font-weight:700;margin-bottom:.72rem">Health Summary</div>
+          <div style="font-size:.8rem">
+            <div class="fb" style="padding:.42rem 0;border-bottom:1px solid var(--s8)"><span style="color:var(--s5)">Insurance ID</span><span style="font-weight:600">STAR-2024-78432</span></div>
+            <div class="fb" style="padding:.42rem 0;border-bottom:1px solid var(--s8)"><span style="color:var(--s5)">Organ Donor</span><span style="font-weight:600;color:var(--emd)">Yes &#10003;</span></div>
+            <div class="fb" style="padding:.42rem 0;border-bottom:1px solid var(--s8)"><span style="color:var(--s5)">Last Blood Test</span><span style="font-weight:600">Nov 2024</span></div>
+            <div class="fb" style="padding:.42rem 0"><span style="color:var(--s5)">Profile Updated</span><span style="font-weight:600">Dec 4, 2024</span></div>
+          </div>
+          <button class="btn bsm bout" style="width:100%;justify-content:center;margin-top:.72rem" onclick="toast('Edit mode activated','ok')">&#9999;&#65039; Edit Profile</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== PROFILE ==================== -->
+<div class="page" id="page-profile">
+  <div class="pw">
+    <div class="pbanner">
+      <div class="pav">RS</div>
+      <div style="flex:1">
+        <div class="pname">Rahul Sharma</div>
+        <div class="pdet">Mumbai, Maharashtra &middot; Member since January 2024</div>
+        <div class="ppills"><div class="pp">&#128737;&#65039; Verified</div><div class="pp">&#128680; SOS Ready</div><div class="pp">&#128506; SafeRoute Active</div><div class="pp">&#11088; Score 9.1</div></div>
+      </div>
+      <button class="btn bsm" style="background:rgba(255,255,255,.1);color:#fff;border:none;align-self:flex-start" onclick="toast('Edit profile opened','ok')">Edit</button>
+    </div>
+    <div class="g2" style="margin-bottom:1.1rem">
+      <div class="card">
+        <div style="font-size:.88rem;font-weight:700;margin-bottom:.88rem">Personal Details</div>
+        <div style="font-size:.8rem">
+          <div class="fb" style="padding:.43rem 0;border-bottom:1px solid var(--s8)"><span style="color:var(--s5)">Full Name</span><span style="font-weight:600">Rahul Sharma</span></div>
+          <div class="fb" style="padding:.43rem 0;border-bottom:1px solid var(--s8)"><span style="color:var(--s5)">Phone</span><span style="font-weight:600">+91 98765 43210</span></div>
+          <div class="fb" style="padding:.43rem 0;border-bottom:1px solid var(--s8)"><span style="color:var(--s5)">Age</span><span style="font-weight:600">28 years</span></div>
+          <div class="fb" style="padding:.43rem 0;border-bottom:1px solid var(--s8)"><span style="color:var(--s5)">Blood Group</span><span style="font-weight:600">B+</span></div>
+          <div class="fb" style="padding:.43rem 0;border-bottom:1px solid var(--s8)"><span style="color:var(--s5)">City</span><span style="font-weight:600">Mumbai, MH</span></div>
+          <div class="fb" style="padding:.43rem 0"><span style="color:var(--s5)">Guardian</span><span style="font-weight:600">Suresh Sharma (Father)</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="g2" style="margin-bottom:.88rem">
+          <div class="smi"><div class="sv" style="color:var(--blue)">34</div><div class="sl">Trips Tracked</div></div>
+          <div class="smi"><div class="sv" style="color:var(--am)">7</div><div class="sl">Hazards Reported</div></div>
+          <div class="smi"><div class="sv" style="color:var(--red)">1</div><div class="sl">SOS Used</div></div>
+          <div class="smi"><div class="sv" style="color:var(--em)">9.1</div><div class="sl">Safety Score</div></div>
+        </div>
+        <div class="card">
+          <div style="font-size:.84rem;font-weight:700;margin-bottom:.5rem">Your Impact</div>
+          <div style="font-size:.79rem;color:var(--s4);line-height:1.72">Your 7 hazard reports have been seen by <strong style="color:var(--s1)">1,340 drivers</strong>. Your Circle of Trust has safely tracked <strong style="color:var(--s1)">34 trips</strong>. You're making Mumbai roads safer. &#128737;&#65039;</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:1.1rem">
+      <div style="font-size:.88rem;font-weight:700;margin-bottom:.82rem">&#9881;&#65039; App Settings</div>
+      <div class="togrow" style="border-bottom:1px solid var(--s8)"><div><div class="trl">Crash Detection</div><div class="trs">Auto-detect accidents using device sensors</div></div><div class="tog on" onclick="togSw(this)"></div></div>
+      <div class="togrow" style="border-bottom:1px solid var(--s8)"><div><div class="trl">Circle Auto-Tracking</div><div class="trs">Share live location during trips automatically</div></div><div class="tog on" onclick="togSw(this)"></div></div>
+      <div class="togrow" style="border-bottom:1px solid var(--s8)"><div><div class="trl">Hazard Route Alerts</div><div class="trs">Notify me of hazards on my current route</div></div><div class="tog on" onclick="togSw(this)"></div></div>
+      <div class="togrow" style="border-bottom:1px solid var(--s8)"><div><div class="trl">SOS Confirmation Countdown</div><div class="trs">10-second delay before SOS activation</div></div><div class="tog on" onclick="togSw(this)"></div></div>
+      <div class="togrow" style="border-bottom:1px solid var(--s8)"><div><div class="trl">Night Mode Check-ins</div><div class="trs">Enhanced check-ins between 10 PM &ndash; 6 AM</div></div><div class="tog" onclick="togSw(this)"></div></div>
+      <div class="togrow"><div><div class="trl">Push Notifications</div><div class="trs">Community hazard and nearby SOS alerts</div></div><div class="tog on" onclick="togSw(this)"></div></div>
+    </div>
+    <div style="display:flex;gap:.62rem;flex-wrap:wrap">
+      <button class="btn bsm bout" onclick="toast('Data exported','ok')">&#128228; Export Data</button>
+      <button class="btn bsm bout" onclick="toast('Privacy settings','')">&#128272; Privacy</button>
+      <button class="btn bsm bout" onclick="toast('Terms of Service','')">&#128203; Terms</button>
+      <button class="btn bsm boutred" style="margin-left:auto" onclick="toast('Signed out','')">Sign Out</button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== ADMIN ==================== -->
+<div class="page" id="page-admin">
+  <div class="admin-wrap">
+    <div class="admin-top">
+      <div><div class="attl">&#9881;&#65039; Admin Command Center</div><div class="atsub">Safety Warriors &middot; Live Demo Dashboard</div></div>
+      <div class="fl" style="gap:.62rem;flex-wrap:wrap">
+        <div class="fl" style="gap:.38rem;font-size:.7rem;font-weight:700;color:var(--eml);background:rgba(16,185,129,.1);padding:.32rem .78rem;border-radius:20px;border:1px solid rgba(16,185,129,.18)"><div class="ldot"></div>LIVE MONITORING</div>
+        <button class="btn bsm" style="background:rgba(255,255,255,.08);color:#fff;border:none" onclick="toast('Refreshed','ok')">&#8635; Refresh</button>
+      </div>
+    </div>
+    <div class="sgrid">
+      <div class="sbox"><div class="sblbl">Active SOS Alerts</div><div class="sbval" style="color:var(--red)">3</div><div class="sbsub"><span class="up">&#8593; +2</span> this hour</div><div class="spk" id="sp1"></div></div>
+      <div class="sbox"><div class="sblbl">Hazard Reports</div><div class="sbval" style="color:var(--am)">47</div><div class="sbsub"><span class="up">&#8593; +12</span> today</div><div class="spk" id="sp2"></div></div>
+      <div class="sbox"><div class="sblbl">Active Users</div><div class="sbval" style="color:var(--blue)">1,284</div><div class="sbsub"><span class="up">&#8593; 66%</span> online</div><div class="spk" id="sp3"></div></div>
+      <div class="sbox"><div class="sblbl">Avg Response</div><div class="sbval" style="color:var(--em)">4.2m</div><div class="sbsub"><span class="dn">&#8595; 0.8m</span> improved</div><div class="spk" id="sp4"></div></div>
+      <div class="sbox"><div class="sblbl">Help Dispatched</div><div class="sbval" style="color:var(--emd)">12</div><div class="sbsub">Today &middot; <span class="up">29 resolved</span></div></div>
+    </div>
+    <div class="g2" style="margin-bottom:1.1rem">
+      <div class="card">
+        <div class="fb" style="margin-bottom:.78rem"><div style="font-size:.85rem;font-weight:700">&#128680; Active SOS Alerts</div><span class="bdg dred">3 Critical</span></div>
+        <div style="overflow-x:auto">
+          <table class="dtbl">
+            <thead><tr><th>User</th><th>Location</th><th>Status</th><th>Help</th><th>ETA</th></tr></thead>
+            <tbody>
+              <tr><td><span class="pd pdr"></span>Amit K.</td><td style="color:var(--s5)">Bandra, MH</td><td><span class="bdg dred">Active</span></td><td><span class="bdg dem">Dispatched</span></td><td style="font-size:.72rem;color:var(--s5)">2 min</td></tr>
+              <tr><td><span class="pd pdo"></span>Sneha R.</td><td style="color:var(--s5)">Thane, MH</td><td><span class="bdg dam">Pending</span></td><td><span class="bdg dam">Assigned</span></td><td style="font-size:.72rem;color:var(--s5)">6 min</td></tr>
+              <tr><td><span class="pd pdr"></span>Ravi M.</td><td style="color:var(--s5)">Pune, MH</td><td><span class="bdg dred">Active</span></td><td><span class="bdg dblue">En Route</span></td><td style="font-size:.72rem;color:var(--s5)">9 min</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <div class="fb" style="margin-bottom:.78rem"><div style="font-size:.85rem;font-weight:700">&#9888;&#65039; Hazard Reports</div><button class="btn bxs bout" onclick="toast('All reports','')">View All</button></div>
+        <div style="overflow-x:auto">
+          <table class="dtbl">
+            <thead><tr><th>Type</th><th>Location</th><th>Sev.</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>&#128371; Pothole</td><td style="color:var(--s5);font-size:.74rem">SV Rd, Andheri</td><td><span class="bdg dam">High</span></td><td><span class="bdg dem">Verified</span></td></tr>
+              <tr><td>&#128165; Accident</td><td style="color:var(--s5);font-size:.74rem">WEH, D-Mart</td><td><span class="bdg dred">Critical</span></td><td><span class="bdg dem">Verified</span></td></tr>
+              <tr><td>&#127754; Waterlog</td><td style="color:var(--s5);font-size:.74rem">Juhu Circle</td><td><span class="bdg dblue">Medium</span></td><td><span class="bdg dam">Pending</span></td></tr>
+              <tr><td>&#128679; Roadblock</td><td style="color:var(--s5);font-size:.74rem">Link Rd</td><td><span class="bdg dem">Low</span></td><td><span class="bdg dam">Pending</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="g2">
+      <div>
+        <div class="card" style="margin-bottom:.95rem">
+          <div style="font-size:.85rem;font-weight:700;margin-bottom:.78rem">&#128100; User Emergency Profiles</div>
+          <div class="scroll" style="max-height:188px">
+            <div class="crow"><div class="av" style="width:33px;height:33px;background:var(--redbg);color:var(--red)">AK</div><div style="flex:1"><div style="font-size:.78rem;font-weight:600">Amit Kumar</div><div style="font-size:.66rem;color:var(--s5)">B+ &middot; Diabetic &middot; Mumbai</div></div><span class="bdg dred">&#128680; SOS</span></div>
+            <div class="crow"><div class="av" style="width:33px;height:33px;background:var(--embg);color:var(--emd)">SR</div><div style="flex:1"><div style="font-size:.78rem;font-weight:600">Sneha Rao</div><div style="font-size:.66rem;color:var(--s5)">O+ &middot; None &middot; Thane</div></div><span class="bdg dam">&#9888; Alert</span></div>
+            <div class="crow"><div class="av" style="width:33px;height:33px;background:var(--blbg);color:var(--bld)">RS</div><div style="flex:1"><div style="font-size:.78rem;font-weight:600">Rahul Sharma</div><div style="font-size:.66rem;color:var(--s5)">B+ &middot; Hypertension</div></div><span class="bdg dem">&#10003; Safe</span></div>
+            <div class="crow"><div class="av" style="width:33px;height:33px;background:#F3E5F5;color:#7B1FA2">PP</div><div style="flex:1"><div style="font-size:.78rem;font-weight:600">Priya Patel</div><div style="font-size:.66rem;color:var(--s5)">A+ &middot; Penicillin</div></div><span class="bdg dem">&#10003; Safe</span></div>
+            <div class="crow"><div class="av" style="width:33px;height:33px;background:var(--ambg);color:var(--am)">RM</div><div style="flex:1"><div style="font-size:.78rem;font-weight:600">Ravi Menon</div><div style="font-size:.66rem;color:var(--s5)">AB+ &middot; Asthma &middot; Pune</div></div><span class="bdg dred">&#128680; SOS</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <div style="font-size:.85rem;font-weight:700;margin-bottom:.78rem">&#9989; Help Assignment</div>
+          <div class="g2" style="gap:.58rem">
+            <div class="smi"><div class="sv" style="color:var(--blue)">12</div><div class="sl">Assigned</div></div>
+            <div class="smi"><div class="sv" style="color:var(--em)">8</div><div class="sl">En Route</div></div>
+            <div class="smi"><div class="sv" style="color:var(--emd)">29</div><div class="sl">Resolved</div></div>
+            <div class="smi"><div class="sv" style="color:var(--red)">3</div><div class="sl">Awaiting</div></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="card" style="margin-bottom:.95rem">
+          <div style="font-size:.85rem;font-weight:700;margin-bottom:.78rem">&#128506;&#65039; Live Location Map</div>
+          <div class="amap">
+            <div class="adot" style="background:var(--redl);top:34%;left:40%"></div>
+            <div class="adot" style="background:var(--redl);top:56%;left:62%;animation-delay:.5s"></div>
+            <div class="adot" style="background:#F59E0B;top:44%;left:26%;animation-delay:1s"></div>
+            <div class="adot" style="background:#22C55E;top:30%;left:57%"></div>
+            <div class="adot" style="background:#22C55E;top:66%;left:45%;animation-delay:.7s"></div>
+            <span style="position:relative;z-index:1;font-size:.72rem;color:rgba(255,255,255,.25)">Maharashtra &middot; Live Map</span>
+          </div>
+          <div class="fl" style="gap:.95rem;margin-top:.65rem;font-size:.7rem">
+            <div class="fl" style="gap:.32rem"><div style="width:7px;height:7px;border-radius:50%;background:var(--redl)"></div>SOS Active</div>
+            <div class="fl" style="gap:.32rem"><div style="width:7px;height:7px;border-radius:50%;background:#F59E0B"></div>Alert</div>
+            <div class="fl" style="gap:.32rem"><div style="width:7px;height:7px;border-radius:50%;background:#22C55E"></div>Safe</div>
+          </div>
+        </div>
+        <div class="card">
+          <div style="font-size:.85rem;font-weight:700;margin-bottom:.78rem">&#128202; Location Coverage</div>
+          <div style="display:flex;flex-direction:column;gap:.58rem;font-size:.79rem">
+            <div><div class="fb" style="margin-bottom:.2rem"><span>Live Location Sharing</span><span style="font-weight:700;color:var(--blue)">847 / 1284</span></div><div class="prog"><div class="progf" style="width:66%;background:var(--blue)"></div></div></div>
+            <div><div class="fb" style="margin-bottom:.2rem"><span>Active Trip Tracking</span><span style="font-weight:700;color:var(--em)">234 / 1284</span></div><div class="prog"><div class="progf" style="width:18%;background:var(--em)"></div></div></div>
+            <div><div class="fb" style="margin-bottom:.2rem"><span>Offline / Inactive</span><span style="font-weight:700;color:var(--s5)">203 / 1284</span></div><div class="prog"><div class="progf" style="width:16%;background:var(--s7)"></div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+<script>
+function go(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));
+  const p=document.getElementById('page-'+id);if(p)p.classList.add('on');
+  const b=document.getElementById('nb-'+id);if(b)b.classList.add('on');
+  window.scrollTo(0,0);
+  if(id==='medical')buildQR();
+  if(id==='admin')buildSpk();
+  closeMob();
+}
+function toggleMob(){document.getElementById('mobNav').classList.toggle('open')}
+function closeMob(){document.getElementById('mobNav').classList.remove('open')}
+let tt;
+function toast(msg,type=''){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.className='toast'+(type?' '+type:'');
+  t.classList.add('on');clearTimeout(tt);
+  tt=setTimeout(()=>t.classList.remove('on'),3000);
+}
+function ftab(w){
+  const reg=document.getElementById('reg-form'),log=document.getElementById('login-form');
+  const tr=document.getElementById('ftab-reg'),tl=document.getElementById('ftab-login');
+  const h=document.getElementById('auth-h'),s=document.getElementById('auth-sub');
+  if(w==='reg'){reg.style.display='block';log.style.display='none';tr.classList.add('on');tl.classList.remove('on');h.textContent='Create your account';s.textContent='Set up your emergency profile — takes under 3 minutes';}
+  else{reg.style.display='none';log.style.display='block';tl.classList.add('on');tr.classList.remove('on');h.textContent='Welcome back';s.textContent='Sign in to your Safety Warriors account';}
+}
+function doReg(){toast('Profile created! Welcome to Safety Warriors.','ok');setTimeout(()=>go('dashboard'),1100);}
+function doLogin(){toast('Signed in successfully!','ok');setTimeout(()=>go('dashboard'),900);}
+const AC=window.AudioContext||window.webkitAudioContext;
+let ac=null;
+function beep(f=880,d=0.12,v=0.4){
+  try{if(!ac)ac=new AC();const o=ac.createOscillator(),g=ac.createGain();o.connect(g);g.connect(ac.destination);o.frequency.value=f;o.type='sine';g.gain.setValueAtTime(v,ac.currentTime);g.gain.exponentialRampToValueAtTime(0.001,ac.currentTime+d);o.start();o.stop(ac.currentTime+d);}catch(e){}
+}
+function sosBeepLoop(){if(!window._sa)return;beep(880,0.1,0.48);setTimeout(()=>{if(window._sa)beep(660,0.1,0.38)},200);setTimeout(()=>{if(window._sa)sosBeepLoop()},580);}
+let sosT,sosC=10,sosR=false;
+function activateSOS(){
+  if(sosR)return;sosR=true;sosC=10;
+  document.getElementById('sos-cd').style.display='block';
+  document.getElementById('sos-btn').classList.add('armed');
+  document.getElementById('cd-num').textContent=10;
+  document.getElementById('cd-fill').style.width='100%';
+  beep(440,0.2,0.3);
+  sosT=setInterval(()=>{sosC--;document.getElementById('cd-num').textContent=sosC;document.getElementById('cd-fill').style.width=(sosC*10)+'%';beep(440+sosC*20,0.08,0.28);if(sosC<=0){clearInterval(sosT);trigSOS();}},1000);
+}
+function cancelSOS(){
+  clearInterval(sosT);sosR=false;window._sa=false;
+  document.getElementById('sos-cd').style.display='none';
+  document.getElementById('sos-btn').classList.remove('armed');
+  beep(330,0.25,0.28);toast('SOS cancelled.');
+}
+function trigSOS(){
+  window._sa=true;
+  document.getElementById('sos-cd').style.display='none';
+  document.getElementById('sos-act').style.display='block';
+  document.getElementById('sos-btn').classList.remove('armed');
+  ['sc1','sc2','sc3'].forEach(id=>{const el=document.getElementById(id);if(el){el.textContent='Notified';el.className='bdg dem';}});
+  document.getElementById('loc-btn').classList.add('active');
+  document.getElementById('loc-btn').textContent='Location Shared';
+  toast('SOS ACTIVATED! Help is on the way!','err');
+  sosBeepLoop();
+  setTimeout(()=>{sosR=false;window._sa=false;document.getElementById('sos-act').style.display='none';document.getElementById('loc-btn').classList.remove('active');document.getElementById('loc-btn').textContent='Share Location';['sc1','sc2','sc3'].forEach(id=>{const el=document.getElementById(id);if(el){el.textContent='Standby';el.className='bdg dgray';}});},10000);
+}
+function simCrash(){beep(180,0.4,0.5);toast('Crash detected! Activating SOS in 10s...','err');setTimeout(activateSOS,700);}
+function shareLoc(){beep(660,0.12,0.28);toast('Live location shared with your Circle!','ok');}
+function selHz(el){document.querySelectorAll('.hztype').forEach(h=>h.classList.remove('sel'));el.classList.add('sel');}
+function selSev(el,lv){
+  el.parentNode.querySelectorAll('.sev').forEach(s=>s.classList.remove('onl','onm','onh','onc'));
+  const map={l:'onl',m:'onm',h:'onh',c:'onc'};el.classList.add(map[lv]);
+}
+function submitHz(){
+  const loc=document.getElementById('hz-loc');
+  if(!loc.value.trim()){toast('Please add a location','warn');return;}
+  const em=document.querySelector('.hztype.sel .hzem')?.textContent||'';
+  toast(em+' Hazard reported! Community notified.','ok');
+  loc.value='';document.getElementById('hz-desc').value='';
+}
+function upvote(btn){
+  if(btn.classList.contains('voted')){toast('Already upvoted!');return;}
+  btn.classList.add('voted');
+  btn.textContent='▲ '+(parseInt(btn.textContent.replace('▲ ',''))+1);
+  toast('Upvote recorded!','ok');
+}
+function buildQR(){
+  const a=document.getElementById('qr-art');if(!a||a.children.length>0)return;
+  [1,1,1,0,1,0,1,1,1,1,0,1,0,0,1,0,1,0,1,1,1,0,0,1,0,1,1,1,1,0,1,0,1,0,1,1,0,0,0,0,0,0,1,0,0,1,0,1,1,1,1,0,0,1,1,1,1,1,1,1,0,1,0,1,1,0,0,1,1,0,0,0,0,0,1,0,1,1,0,1,1].forEach(v=>{const c=document.createElement('div');c.className=v?'qrb':'qrw';a.appendChild(c);});
+}
+function buildSpk(){
+  const cfg={sp1:{d:[1,2,1,3,2,4,3,5,4,3,5,3],c:'#EF4444'},sp2:{d:[4,5,3,6,5,7,6,8,7,9,8,7],c:'#F59E0B'},sp3:{d:[700,800,780,860,900,870,950,1000,1100,1200,1250,1284],c:'#3B82F6'},sp4:{d:[6,5.5,5,4.8,5,4.5,4.8,4.2,4.5,4.3,4.2,4.2],c:'#059669'}};
+  Object.entries(cfg).forEach(([id,{d,c}])=>{const el=document.getElementById(id);if(!el||el.children.length>0)return;const mx=Math.max(...d);d.forEach(v=>{const b=document.createElement('div');b.className='spkbar';b.style.cssText=`height:${Math.round((v/mx)*100)}%;background:${c};flex:1`;el.appendChild(b);});});
+}
+function togSw(el){el.classList.toggle('on');toast(el.classList.contains('on')?'Setting enabled':'Setting disabled','');}
+function selRT(el){el.parentNode.querySelectorAll('.srt').forEach(r=>r.classList.remove('on'));el.classList.add('on');toast('Route preference: '+el.textContent.trim(),'');}
+</script>
+</body>
+</html>
